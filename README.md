@@ -1,0 +1,131 @@
+# Book Trading Club - MERN Application
+
+A full-stack MERN (MongoDB, Express, React, Node.js) application for managing book trades.
+
+## Project Structure
+
+```
+BookTradingClub/
+├── server/                 # Node.js/Express backend
+│   ├── src/
+│   │   ├── config/        # Configuration files
+│   │   ├── controllers/   # Request handlers
+│   │   ├── models/        # MongoDB schemas
+│   │   ├── routes/        # API routes
+│   │   ├── middleware/    # Custom middleware
+│   │   └── index.js       # Server entry point
+│   ├── package.json
+│   └── .env.example
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   ├── pages/         # Page components
+│   │   ├── services/      # API services
+│   │   ├── styles/        # CSS files
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+└── README.md
+```
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
+
+### Backend Setup
+
+1. Navigate to server directory:
+   ```bash
+   cd server
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create `.env` file (copy from `.env.example`):
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Update `.env` with your MongoDB URI and other settings
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+Server runs on `http://localhost:5000`
+
+### Frontend Setup
+
+1. Navigate to client directory:
+   ```bash
+   cd client
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+App runs on `http://localhost:3000`
+
+## Available Scripts
+
+### Backend
+- `npm run dev` - Start development server with nodemon
+- `npm start` - Start production server
+- `npm test` - Run tests
+
+### Frontend
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Features (To be implemented)
+- User authentication
+- Book listings
+- Trading system
+- User profiles
+- Search and filter
+
+## Technologies Used
+
+**Backend:**
+- Express.js - Web framework
+- MongoDB - Database
+- Mongoose - ODM
+- JWT - Authentication
+- bcryptjs - Password hashing
+
+**Frontend:**
+- React - UI library
+- Vite - Build tool
+- Axios - HTTP client
+- React Router - Navigation
+
+## Next Steps
+
+1. Set up MongoDB connection
+2. Create User model and authentication
+3. Create Book model and CRUD operations
+4. Create Trade model for book exchanges
+5. Build React components for UI
+6. Implement API integration
+
+## License
+
+ISC
