@@ -1,27 +1,22 @@
-import { useState, useEffect } from 'react'
-import './styles/App.css'
+import {BrowserRouter,Routes, Route} from 'react-router-dom';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
+import Signin from './pages/Signin';
+import About from './pages/About'
+import Profile from './pages/Profile';
 
-function App() {
-  const [serverStatus, setServerStatus] = useState('Loading...')
-
-  useEffect(() => {
-    fetch('/api/health')
-      .then(res => res.json())
-      .then(data => setServerStatus(data.status))
-      .catch(err => setServerStatus('Server not connected'))
-  }, [])
-
+export default function App() {
   return (
-    <div className="App">
-      <header>
-        <h1>Book Trading Club</h1>
-        <p>Server Status: {serverStatus}</p>
-      </header>
-      <main>
-        <p>Welcome to the Book Trading Club Application</p>
-      </main>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/sign-in' element={<Signin/>}/>
+      <Route path='/sign-up' element={<SignUp/>}/>
+      <Route path='/about' element={<About/>}/>
+      <Route path='/profile' element={<Profile/>}/>
+    </Routes>
+    
+    
+    </BrowserRouter>
   )
 }
-
-export default App
