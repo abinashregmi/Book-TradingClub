@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+=======
 # Logs
 logs
 *.log
@@ -22,3 +30,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env
+>>>>>>> 536ee69 (MERN project template)
