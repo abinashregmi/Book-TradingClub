@@ -3,16 +3,16 @@ import { errorHandler } from '../utils/error.js';
 
 export const createListing = async (req, res, next) => {
   try {
-    // Extract Cloudinary secure URLs from req.files if they exist
     let imageUrls = [];
     if (req.files && req.files.length > 0) {
       imageUrls = req.files.map((file) => file.path);
     }
 
-    // Combine form data with the Cloudinary image URLs
+    // Safely parse or extract string/array data sent from frontend
     const listingData = {
       ...req.body,
       imageUrls: imageUrls.length > 0 ? imageUrls : req.body.imageUrls,
+      userRef: req.user.id, // Securely bind the listing to the authenticated user
     };
 
     const listing = await Listing.create(listingData);
@@ -23,48 +23,47 @@ export const createListing = async (req, res, next) => {
 };
 
 export const deleteListing = async (req, res, next) => {
-  const listing = await Listing.findById(req.params.id);
-  if (!listing) {
-    return next(errorHandler(404, 'Listing not found!'));
-  }
-  if (req.user.id !== listing.userRef.toString()) {
-    return next(errorHandler(403, 'You can delete only your listing!'));
-  }
-
   try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+    if (req.user.id !== listing.userRef.toString()) {
+      return next(errorHandler(403, 'You can delete only your listing!'));
+    }
+
     await Listing.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: 'Listing deleted successfully!' });
+    return res.status(200).json({ message: 'Listing deleted successfully!' });
   } catch (error) {
     next(error);
   }
 };
 
 export const updateListing = async (req, res, next) => {
-  const listing = await Listing.findById(req.params.id);
-  if (!listing) {
-    return next(errorHandler(404, 'Listing not found!'));
-  }
-  if (req.user.id !== listing.userRef.toString()) {
-    return next(errorHandler(403, 'You can only update your own listing!'));
-  }
   try {
-    // Create an update object from text body properties
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+    if (req.user.id !== listing.userRef.toString()) {
+      return next(errorHandler(403, 'You can only update your own listing!'));
+    }
+
     const updateData = { ...req.body };
 
-    // If new images were uploaded during the edit, catch their new Cloudinary links
+    // Append new images instead of wiping out old ones completely
     if (req.files && req.files.length > 0) {
       const newImageUrls = req.files.map((file) => file.path);
-      
-      // If your frontend keeps old images too, combine them; otherwise, overwrite
-      updateData.imageUrls = newImageUrls;
+      const existingUrls = req.body.imageUrls ? (Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls]) : [];
+      updateData.imageUrls = [...existingUrls, ...newImageUrls];
     }
 
     const updatedListing = await Listing.findByIdAndUpdate(
       req.params.id,
       updateData,
-      { new: true }
+      { new: true, runValidators: true } // Ensures data types match schema rules
     );
-    res.status(200).json(updatedListing);
+    return res.status(200).json(updatedListing);
   } catch (error) {
     next(error);
   }
@@ -76,7 +75,7 @@ export const getListing = async (req, res, next) => {
     if (!listing) {
       return next(errorHandler(404, 'Listing not found!'));
     }
-    res.status(200).json(listing);
+    return res.status(200).json(listing);
   } catch (error) {
     next(error);
   }
@@ -87,19 +86,26 @@ export const getListings = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
 
+    // Direct Boolean mappings for exact query matching
     let offer = req.query.offer;
-    if (offer === undefined || offer === 'false') {
+    if (offer === undefined || offer === 'all') {
       offer = { $in: [false, true] };
+    } else {
+      offer = offer === 'true';
     }
 
     let furnished = req.query.furnished;
-    if (furnished === undefined || furnished === 'false') {
+    if (furnished === undefined || furnished === 'all') {
       furnished = { $in: [false, true] };
+    } else {
+      furnished = furnished === 'true';
     }
 
     let parking = req.query.parking;
-    if (parking === undefined || parking === 'false') {
+    if (parking === undefined || parking === 'all') {
       parking = { $in: [false, true] };
+    } else {
+      parking = parking === 'true';
     }
 
     let type = req.query.type;
@@ -109,7 +115,7 @@ export const getListings = async (req, res, next) => {
 
     const searchTerm = req.query.searchTerm || '';
     const sort = req.query.sort || 'createdAt';
-    const order = req.query.order || 'desc';
+    const order = req.query.order === 'asc' ? 1 : -1; // MongoDB sort order mapping
 
     const listings = await Listing.find({
       name: { $regex: searchTerm, $options: 'i' },
