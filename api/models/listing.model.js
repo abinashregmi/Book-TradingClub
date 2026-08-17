@@ -54,6 +54,11 @@ const listingSchema = new mongoose.Schema({
         type: String,
         required: true,
     }, 
+    bookingStatus: {
+        type:String,
+        enum: ['available', 'booked', 'sold'],
+        default: 'available',
+    }
 },{timestamps: true});
 
 const Listing = mongoose.model("Listing", listingSchema);
