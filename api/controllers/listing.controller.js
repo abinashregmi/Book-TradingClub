@@ -3,7 +3,19 @@ import { errorHandler } from '../utils/error.js';
 
 export const createListing = async (req, res, next) => {
   try {
-    const listing = await Listing.create(req.body);
+    // Extract Cloudinary secure URLs from req.files if they exist
+    let imageUrls = [];
+    if (req.files && req.files.length > 0) {
+      imageUrls = req.files.map((file) => file.path);
+    }
+
+    // Combine form data with the Cloudinary image URLs
+    const listingData = {
+      ...req.body,
+      imageUrls: imageUrls.length > 0 ? imageUrls : req.body.imageUrls,
+    };
+
+    const listing = await Listing.create(listingData);
     return res.status(201).json(listing);
   } catch (error) {
     next(error);
@@ -27,8 +39,6 @@ export const deleteListing = async (req, res, next) => {
   }
 };
 
-// listing.controller.js — add below your existing exports
-
 export const updateListing = async (req, res, next) => {
   const listing = await Listing.findById(req.params.id);
   if (!listing) {
@@ -38,9 +48,20 @@ export const updateListing = async (req, res, next) => {
     return next(errorHandler(403, 'You can only update your own listing!'));
   }
   try {
+    // Create an update object from text body properties
+    const updateData = { ...req.body };
+
+    // If new images were uploaded during the edit, catch their new Cloudinary links
+    if (req.files && req.files.length > 0) {
+      const newImageUrls = req.files.map((file) => file.path);
+      
+      // If your frontend keeps old images too, combine them; otherwise, overwrite
+      updateData.imageUrls = newImageUrls;
+    }
+
     const updatedListing = await Listing.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true }
     );
     res.status(200).json(updatedListing);
