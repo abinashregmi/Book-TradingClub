@@ -1,0 +1,4089 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+api/
+  controllers/
+    auth.controller.js
+    listing.controller.js
+    user.controller.js
+  models/
+    listing.model.js
+    transaction.model.js
+    user.model.js
+  routes/
+    auth.route.js
+    listing.route.js
+    user.route.js
+  utils/
+    cloudinary.js
+    error.js
+    verifyUser.js
+  index.js
+client/
+  .git/
+    hooks/
+      applypatch-msg.sample
+      commit-msg.sample
+      fsmonitor-watchman.sample
+      post-update.sample
+      pre-applypatch.sample
+      pre-commit.sample
+      pre-merge-commit.sample
+      pre-push.sample
+      pre-rebase.sample
+      pre-receive.sample
+      prepare-commit-msg.sample
+      push-to-checkout.sample
+      sendemail-validate.sample
+      update.sample
+    info/
+      exclude
+    objects/
+      00/
+        4cf477437cfcff73647d87cfa39aa35751ff5c
+      01/
+        0086a36ce3f3253c59901278c6e5e2f2275c84
+      04/
+        dfc53bacd58546a16c18abf1eb755bd63e4fc5
+      05/
+        81bbf6cf64ac32b6f8593090eb16898d3f7120
+      08/
+        7f05a99dd9722a471f60e4e50658276932216f
+      09/
+        9983b6969aef02c90c82f698f98f02177975c5
+      0a/
+        b8b09ac33e949412a1c51c6c5bc503530ee28b
+      0b/
+        c3c5409a4af6f000920f96f8487ff2e70c8329
+      0d/
+        7f2160dfe318485d8df587ea1929498776102d
+      0f/
+        818ddc5384ac2622e50eb96a153517961d8323
+      10/
+        ebd1948f2b9368df7db81c902754223e6bde6c
+      11/
+        f8817f0c4f21101f5dbf6140081672fbea671e
+      12/
+        9708e62328ec245def6ed9d4b03ef30c3d63b1
+      15/
+        3b4716da8c01674ea1a49401c820cb980b76c9
+      17/
+        c423807c135abd8066add8c6b3d86ed946bb87
+      1d/
+        61c77ef4501f8fdeaaf96e54c19809daa74ea3
+      1e/
+        780d048e23947abab409d166c2f5d2fb3ea238
+      1f/
+        54a1ef82ca72d634c8b02ead6c34ea4f8f32d3
+        7024e87f7505514da7f4367620c1a109daa11d
+      21/
+        f61c142b4d1644e5e5df45ab75603e4bbfc18e
+        fa26d39acc6f073069b9591c638819c6f06d27
+      22/
+        a772be07a0d2e307f7f066b1ad26ff58bed212
+      2b/
+        e757a0741127f40f0fec6d545918f541f40cd2
+      2e/
+        d541da624017805fdac740dd91d90038f1a3b5
+        eaf5169301f64fe390f3eb16452a260dddf886
+      34/
+        700ad288b6d04142fcb1a9a1f94d0d78f33d24
+        7f31c60f44710bf9382173cd4194dc7a39c09c
+      35/
+        6d5f8f782c541ccfecb044c66c53d8bd159040
+        e94111942fdbd8c7a91e40a3347ca59be78a89
+      36/
+        32e4e777cbe7140dbdb630feb233e315ad7723
+        74816ec93552664b958cf1e6e614fbf70298d4
+      38/
+        3386c620e99e02432ed9ac405b0480259c05df
+      3a/
+        0f86587fc4911139aad3cc9875262fb64bd212
+      3b/
+        692809d54dd54f9d1670ee29bd27bae31b8fb0
+      3c/
+        1771efc82ed7a32f617ae86b379fa0e8514a88
+        2067f2cf16119a11fc8167e4ed61c7fe6f0fc8
+      3d/
+        552a61f59df8863f345834a23007319bf7dc82
+        d9771e05b914886c538f62977720ae70556401
+      47/
+        7f3f761018fb53bace8642a8af19713b875637
+      48/
+        1c6dfefab8f5cd8ad7cb85df632f01aaf8b69c
+      4c/
+        7cb2842b17931a3da571d48067fd074b1e8828
+      50/
+        7e5af60e3a2a3c836379762579521c3585e3e8
+      54/
+        a7194926a0ce9cab487136d58fc12a52afa2a7
+      59/
+        20911bfe5eb0586f5f32395c67fe66d8374fba
+        4cea4df0ef0249f43a2c5984a70a6868d0afe3
+      5c/
+        702401ee532adfd54fa81255abbbb13930fcb1
+      5d/
+        0d93245bb1adddfde2dd87058ad118da63ac1d
+        510c337ed10d046e95bb3ff1c73ec86c27127b
+      5f/
+        c2a1f08e5b937caf914b574a646eecbb6bfbdd
+      64/
+        26ad07ce50790480288ab1894ffd16791825e9
+      65/
+        f1b30a731e3c4e9559337f062b4c03174c79f3
+      6d/
+        fe6ef4a0e496fd8f5bf6d8a283af09cc52e051
+      6e/
+        56e6e40d0149408226d407bcf8ace1622e84a7
+        a0ee9976c50917c2f48ae0ea48be5ef7f08eb5
+      70/
+        c23c5213c287cd8a4d5435c432dfa07884ce02
+      71/
+        a903ddbd0c916947cf542336b4cd8a79ca33b2
+      75/
+        eac53bbe92abc7c8429715d509fece300c0411
+      78/
+        8befa25679118252037b54679a266d962572e5
+      7b/
+        226af7d3b7f3953be5a42133034458289e06bf
+      7d/
+        22c794a98c7fa91f2eeef3310650ee6004736a
+      7e/
+        49369a85a46768240b62e100e7f90cea803a6d
+      86/
+        cb444db2ebfc9d620f5f56fe45c636b27caf6f
+        e1043a4dd8daa19b14f10479906a86c6857e24
+      87/
+        631b648497db078fe81866ced362c88e286eab
+      8b/
+        58326647d28dac1f9c1b4431db3debdd758502
+      8c/
+        9cf18ce1320cf913054b127fc6a533f57773ff
+      8d/
+        7a788f9e899a63834784ca62f89f315158343e
+        d7f7568bc9d12bdec2384ac99202e0e33d0a63
+      92/
+        19c394a045c9641baf9b68e94421e0e86c32c2
+      93/
+        4bc2f43eef31063df5b4ede2477389f5bbcbf1
+      95/
+        d2bd16630dbcb9c3502ba56cfae39ad24a9db3
+      97/
+        79b9c310d6702438df4e5a1de7718c0f4cb542
+      98/
+        ea772b6cd40634a9cd2ad0cf7742c184974bed
+      99/
+        30eb95efae5be14ee4bb4c589a21740804b1f0
+      9a/
+        01f46edc669e221ff188cff00cd9c79409b7ee
+      9c/
+        516b897101bf2045f387b85ff3bbf01b79d0dc
+      9f/
+        9e2c6ed5017feb09fe1e1ebba13f1a1f5a17fb
+      a3/
+        9380a70cee6d9e674592392bd6b50cab16015d
+      a4/
+        4ee20c3d65016eeed093666d0e9989cdf88f95
+      a5/
+        47bf36d8d11a4f89c59c144f24795749086dd1
+      a6/
+        35f2d57135be645ba43d66c402e9fb69008e58
+      a7/
+        082b63fb8170aabd3b652770ff38d5a3438bb7
+      a8/
+        b5e0ed3bc810006c9b6e530b242d2bb595d3f5
+      aa/
+        3b7b3f95980fd82fcdb2028c66cdcc18038ec2
+      af/
+        4d062649072372d9af13db932f471ffc905e9c
+        72ce2a1e7c8202458858266abaf4fe91045eed
+        7d62cc7594baa65e540da8cf130364f916f403
+      b0/
+        0ff6d0f7333e83e8a39cd6edfaff4f43860086
+      b1/
+        ae6f41fc4692052a75a6fb96d4ee0543f3e795
+      b2/
+        d3a6c9dd25338f70b0aa6bf511fdad9627d2ea
+      b6/
+        e05502db985a5060b52d7de46fc44e2114c44c
+      b8/
+        593786f8190695c35a13b7f3fd8e3083a3643f
+        faa9abdadeda1e73d649e96d3d67379f90b58b
+      b9/
+        a1a6deac8775b5598874b2bc3c7971d82cf211
+      ba/
+        13f89ece7eec445627d5fc89b374e9130512a4
+        b55e0db1d4e44b64afce3a83385579e3216e95
+      bd/
+        289cb4efc97f7f5cbf4448ad80d275f6705852
+      c0/
+        8c22583ea7bfa2fbfcfb65094a6e6f18678af2
+      c6/
+        1564f489b767f37008539e7c0f3e5be802277d
+      c7/
+        56d3fd8340f98066c7fad8abe0911ad8e2432e
+      c9/
+        39ba166412420e04db44098f0c11f6f325579b
+        d9e73e6077cac5fe2db71c454038afa1809a83
+      cc/
+        3b15b682a8445a12a98d06b5c78de14a9f11a0
+      ce/
+        e5605c187dc81e800f8d3ccc5f4ea4cec754b6
+      cf/
+        0dba056a6a3b02fe77d4832ac3389ceecaeff1
+        329ec01f6d83d886245297f053d9e2079327e9
+      d0/
+        1c699601c7cbbb097945d7a14531313b91e392
+        76ccc8197438e6e7606cdda6725449e6029075
+      d1/
+        72806a2c5377cf89e37d13edc29d67373642bf
+      d2/
+        1b206a79f4d3e832eb58b5dcfdd07ee9ba7d03
+      d3/
+        0057cb2cbf1ddaceb500060f8691ff2225449f
+      d6/
+        0ae219334a918b858a3721a064bbb25c0e5fff
+        9b024048d0b246e46986f6599e7dbd527758d9
+        9d027867af75693ba0da6c71fac0f835394b69
+      d8/
+        0886a3e767abb655b102ed199f8fcffacd6e7d
+      da/
+        4fbaa4951d06ebb8f70f881cbe259bca7157d7
+      db/
+        0204ec3601f4077e23d13bc84f3f5e5013b538
+      e1/
+        6d995e3787974d359e3f2652c65818ac3408a1
+      e2/
+        e9c8f17d2e512cab1100104eb683b93bf87519
+      e3/
+        770debf2880a332b43034c43969f747a844d39
+      e7/
+        509581db1237b0b3c36319a2a82135018e2469
+      e8/
+        4b07456f6b2bee6091c736b06b1346d771ee6a
+      e9/
+        3956b4482c159c477571409b49467fc320342a
+      ea/
+        36dd3dc45ddadb9d25dd5e1c74a706dd61a6a9
+      ed/
+        8aeb5c10969cc56504485f065715050b58863d
+      f0/
+        4b4fe414521ec883255f9ab9dbe0bd08485688
+      f1/
+        bcdf57de23e1fa734dc420f6f55babc6a57b18
+        d8c73cdcf9eaacb01fec99963ad78d591305ae
+      f4/
+        f7f5e322461071bff89f61f0d70b6a8301ffae
+      f5/
+        199efb8aa054d2992a03414ca753ea6d2648b8
+      f9/
+        454d1f8df55cc7b1b521c6acfc9b9357439661
+      fa/
+        0a2d6f47c9d84117cb499ca37ba792dc15060e
+      fd/
+        bd348b72e878f29995606a0dae34da3bb00a79
+      fe/
+        78ba58a2c1b4554ad472e48caece6b83e03f0e
+    refs/
+      heads/
+        main
+    COMMIT_EDITMSG
+    config
+    description
+    FETCH_HEAD
+    HEAD
+    index
+  src/
+    components/
+      Contact.jsx
+      Header.jsx
+      ListingItem.jsx
+      OAuth.jsx
+      PrivateRoute.jsx
+    pages/
+      About.jsx
+      CreateListing.jsx
+      Home.jsx
+      ListingItem.jsx
+      Profile.jsx
+      Search.jsx
+      SignIn.jsx
+      SignUp.jsx
+    redux/
+      user/
+        userSlice.js
+      store.js
+    utils/
+      formatPrice.js
+      getCoverImageUrl.js
+    App.jsx
+    firebase.js
+    index.css
+    main.jsx
+    supabase.js
+  .gitignore
+  eslint.config.js
+  index.html
+  jsconfig.json
+  package.json
+  README.md
+  vite.config.js
+.gitignore
+package.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="client/.git/hooks/applypatch-msg.sample">
+#!/bin/sh
+#
+# An example hook script to check the commit log message taken by
+# applypatch from an e-mail message.
+#
+# The hook should exit with non-zero status after issuing an
+# appropriate message if it wants to stop the commit.  The hook is
+# allowed to edit the commit message file.
+#
+# To enable this hook, rename this file to "applypatch-msg".
+
+. git-sh-setup
+commitmsg="$(git rev-parse --git-path hooks/commit-msg)"
+test -x "$commitmsg" && exec "$commitmsg" ${1+"$@"}
+:
+</file>
+
+<file path="client/.git/hooks/commit-msg.sample">
+#!/bin/sh
+#
+# An example hook script to check the commit log message.
+# Called by "git commit" with one argument, the name of the file
+# that has the commit message.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.  The hook is allowed to edit the commit message file.
+#
+# To enable this hook, rename this file to "commit-msg".
+
+# Uncomment the below to add a Signed-off-by line to the message.
+# Doing this in a hook is a bad idea in general, but the prepare-commit-msg
+# hook is more suited to it.
+#
+# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# grep -qs "^$SOB" "$1" || echo "$SOB" >> "$1"
+
+# This example catches duplicate Signed-off-by lines.
+
+test "" = "$(grep '^Signed-off-by: ' "$1" |
+	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
+	echo >&2 Duplicate Signed-off-by lines.
+	exit 1
+}
+</file>
+
+<file path="client/.git/hooks/fsmonitor-watchman.sample">
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use IPC::Open2;
+
+# An example hook script to integrate Watchman
+# (https://facebook.github.io/watchman/) with git to speed up detecting
+# new and modified files.
+#
+# The hook is passed a version (currently 2) and last update token
+# formatted as a string and outputs to stdout a new update token and
+# all files that have been modified since the update token. Paths must
+# be relative to the root of the working tree and separated by a single NUL.
+#
+# To enable this hook, rename this file to "query-watchman" and set
+# 'git config core.fsmonitor .git/hooks/query-watchman'
+#
+my ($version, $last_update_token) = @ARGV;
+
+# Uncomment for debugging
+# print STDERR "$0 $version $last_update_token\n";
+
+# Check the hook interface version
+if ($version ne 2) {
+	die "Unsupported query-fsmonitor hook version '$version'.\n" .
+	    "Falling back to scanning...\n";
+}
+
+my $git_work_tree = get_working_dir();
+
+my $retry = 1;
+
+my $json_pkg;
+eval {
+	require JSON::XS;
+	$json_pkg = "JSON::XS";
+	1;
+} or do {
+	require JSON::PP;
+	$json_pkg = "JSON::PP";
+};
+
+launch_watchman();
+
+sub launch_watchman {
+	my $o = watchman_query();
+	if (is_work_tree_watched($o)) {
+		output_result($o->{clock}, @{$o->{files}});
+	}
+}
+
+sub output_result {
+	my ($clockid, @files) = @_;
+
+	# Uncomment for debugging watchman output
+	# open (my $fh, ">", ".git/watchman-output.out");
+	# binmode $fh, ":utf8";
+	# print $fh "$clockid\n@files\n";
+	# close $fh;
+
+	binmode STDOUT, ":utf8";
+	print $clockid;
+	print "\0";
+	local $, = "\0";
+	print @files;
+}
+
+sub watchman_clock {
+	my $response = qx/watchman clock "$git_work_tree"/;
+	die "Failed to get clock id on '$git_work_tree'.\n" .
+		"Falling back to scanning...\n" if $? != 0;
+
+	return $json_pkg->new->utf8->decode($response);
+}
+
+sub watchman_query {
+	my $pid = open2(\*CHLD_OUT, \*CHLD_IN, 'watchman -j --no-pretty')
+	or die "open2() failed: $!\n" .
+	"Falling back to scanning...\n";
+
+	# In the query expression below we're asking for names of files that
+	# changed since $last_update_token but not from the .git folder.
+	#
+	# To accomplish this, we're using the "since" generator to use the
+	# recency index to select candidate nodes and "fields" to limit the
+	# output to file names only. Then we're using the "expression" term to
+	# further constrain the results.
+	my $last_update_line = "";
+	if (substr($last_update_token, 0, 1) eq "c") {
+		$last_update_token = "\"$last_update_token\"";
+		$last_update_line = qq[\n"since": $last_update_token,];
+	}
+	my $query = <<"	END";
+		["query", "$git_work_tree", {$last_update_line
+			"fields": ["name"],
+			"expression": ["not", ["dirname", ".git"]]
+		}]
+	END
+
+	# Uncomment for debugging the watchman query
+	# open (my $fh, ">", ".git/watchman-query.json");
+	# print $fh $query;
+	# close $fh;
+
+	print CHLD_IN $query;
+	close CHLD_IN;
+	my $response = do {local $/; <CHLD_OUT>};
+
+	# Uncomment for debugging the watch response
+	# open ($fh, ">", ".git/watchman-response.json");
+	# print $fh $response;
+	# close $fh;
+
+	die "Watchman: command returned no output.\n" .
+	"Falling back to scanning...\n" if $response eq "";
+	die "Watchman: command returned invalid output: $response\n" .
+	"Falling back to scanning...\n" unless $response =~ /^\{/;
+
+	return $json_pkg->new->utf8->decode($response);
+}
+
+sub is_work_tree_watched {
+	my ($output) = @_;
+	my $error = $output->{error};
+	if ($retry > 0 and $error and $error =~ m/unable to resolve root .* directory (.*) is not watched/) {
+		$retry--;
+		my $response = qx/watchman watch "$git_work_tree"/;
+		die "Failed to make watchman watch '$git_work_tree'.\n" .
+		    "Falling back to scanning...\n" if $? != 0;
+		$output = $json_pkg->new->utf8->decode($response);
+		$error = $output->{error};
+		die "Watchman: $error.\n" .
+		"Falling back to scanning...\n" if $error;
+
+		# Uncomment for debugging watchman output
+		# open (my $fh, ">", ".git/watchman-output.out");
+		# close $fh;
+
+		# Watchman will always return all files on the first query so
+		# return the fast "everything is dirty" flag to git and do the
+		# Watchman query just to get it over with now so we won't pay
+		# the cost in git to look up each individual file.
+		my $o = watchman_clock();
+		$error = $output->{error};
+
+		die "Watchman: $error.\n" .
+		"Falling back to scanning...\n" if $error;
+
+		output_result($o->{clock}, ("/"));
+		$last_update_token = $o->{clock};
+
+		eval { launch_watchman() };
+		return 0;
+	}
+
+	die "Watchman: $error.\n" .
+	"Falling back to scanning...\n" if $error;
+
+	return 1;
+}
+
+sub get_working_dir {
+	my $working_dir;
+	if ($^O =~ 'msys' || $^O =~ 'cygwin') {
+		$working_dir = Win32::GetCwd();
+		$working_dir =~ tr/\\/\//;
+	} else {
+		require Cwd;
+		$working_dir = Cwd::cwd();
+	}
+
+	return $working_dir;
+}
+</file>
+
+<file path="client/.git/hooks/post-update.sample">
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+exec git update-server-info
+</file>
+
+<file path="client/.git/hooks/pre-applypatch.sample">
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed
+# by applypatch from an e-mail message.
+#
+# The hook should exit with non-zero status after issuing an
+# appropriate message if it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-applypatch".
+
+. git-sh-setup
+precommit="$(git rev-parse --git-path hooks/pre-commit)"
+test -x "$precommit" && exec "$precommit" ${1+"$@"}
+:
+</file>
+
+<file path="client/.git/hooks/pre-commit.sample">
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=$(git hash-object -t tree /dev/null)
+fi
+
+# If you want to allow non-ASCII filenames set this variable to true.
+allownonascii=$(git config --type=bool hooks.allownonascii)
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Cross platform projects tend to avoid non-ASCII filenames; prevent
+# them from being added to the repository. We exploit the fact that the
+# printable range starts at the space character and ends with tilde.
+if [ "$allownonascii" != "true" ] &&
+	# Note that the use of brackets around a tr range is ok here, (it's
+	# even required, for portability to Solaris 10's /usr/bin/tr), since
+	# the square bracket bytes happen to fall in the designated range.
+	test $(git diff-index --cached --name-only --diff-filter=A -z $against |
+	  LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
+then
+	cat <<\EOF
+Error: Attempt to add a non-ASCII file name.
+
+This can cause problems if you want to work with people on other platforms.
+
+To be portable it is advisable to rename the file.
+
+If you know what you are doing you can disable this check using:
+
+  git config hooks.allownonascii true
+EOF
+	exit 1
+fi
+
+# If there are whitespace errors, print the offending file names and fail.
+exec git diff-index --check --cached $against --
+</file>
+
+<file path="client/.git/hooks/pre-merge-commit.sample">
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git merge" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message to
+# stderr if it wants to stop the merge commit.
+#
+# To enable this hook, rename this file to "pre-merge-commit".
+
+. git-sh-setup
+test -x "$GIT_DIR/hooks/pre-commit" &&
+        exec "$GIT_DIR/hooks/pre-commit"
+:
+</file>
+
+<file path="client/.git/hooks/pre-push.sample">
+#!/bin/sh
+
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local oid> <remote ref> <remote oid>
+#
+# This sample shows how to prevent push of commits where the log message starts
+# with "WIP" (work in progress).
+
+remote="$1"
+url="$2"
+
+zero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')
+
+while read local_ref local_oid remote_ref remote_oid
+do
+	if test "$local_oid" = "$zero"
+	then
+		# Handle delete
+		:
+	else
+		if test "$remote_oid" = "$zero"
+		then
+			# New branch, examine all commits
+			range="$local_oid"
+		else
+			# Update to existing branch, examine new commits
+			range="$remote_oid..$local_oid"
+		fi
+
+		# Check for WIP commit
+		commit=$(git rev-list -n 1 --grep '^WIP' "$range")
+		if test -n "$commit"
+		then
+			echo >&2 "Found WIP commit in $local_ref, not pushing"
+			exit 1
+		fi
+	fi
+done
+
+exit 0
+</file>
+
+<file path="client/.git/hooks/pre-rebase.sample">
+#!/bin/sh
+#
+# Copyright (c) 2006, 2008 Junio C Hamano
+#
+# The "pre-rebase" hook is run just before "git rebase" starts doing
+# its job, and can prevent the command from running by exiting with
+# non-zero status.
+#
+# The hook is called with the following parameters:
+#
+# $1 -- the upstream the series was forked from.
+# $2 -- the branch being rebased (or empty when rebasing the current branch).
+#
+# This sample shows how to prevent topic branches that are already
+# merged to 'next' branch from getting rebased, because allowing it
+# would result in rebasing already published history.
+
+publish=next
+basebranch="$1"
+if test "$#" = 2
+then
+	topic="refs/heads/$2"
+else
+	topic=`git symbolic-ref HEAD` ||
+	exit 0 ;# we do not interrupt rebasing detached HEAD
+fi
+
+case "$topic" in
+refs/heads/??/*)
+	;;
+*)
+	exit 0 ;# we do not interrupt others.
+	;;
+esac
+
+# Now we are dealing with a topic branch being rebased
+# on top of master.  Is it OK to rebase it?
+
+# Does the topic really exist?
+git show-ref -q "$topic" || {
+	echo >&2 "No such branch $topic"
+	exit 1
+}
+
+# Is topic fully merged to master?
+not_in_master=`git rev-list --pretty=oneline ^master "$topic"`
+if test -z "$not_in_master"
+then
+	echo >&2 "$topic is fully merged to master; better remove it."
+	exit 1 ;# we could allow it, but there is no point.
+fi
+
+# Is topic ever merged to next?  If so you should not be rebasing it.
+only_next_1=`git rev-list ^master "^$topic" ${publish} | sort`
+only_next_2=`git rev-list ^master           ${publish} | sort`
+if test "$only_next_1" = "$only_next_2"
+then
+	not_in_topic=`git rev-list "^$topic" master`
+	if test -z "$not_in_topic"
+	then
+		echo >&2 "$topic is already up to date with master"
+		exit 1 ;# we could allow it, but there is no point.
+	else
+		exit 0
+	fi
+else
+	not_in_next=`git rev-list --pretty=oneline ^${publish} "$topic"`
+	/usr/bin/perl -e '
+		my $topic = $ARGV[0];
+		my $msg = "* $topic has commits already merged to public branch:\n";
+		my (%not_in_next) = map {
+			/^([0-9a-f]+) /;
+			($1 => 1);
+		} split(/\n/, $ARGV[1]);
+		for my $elem (map {
+				/^([0-9a-f]+) (.*)$/;
+				[$1 => $2];
+			} split(/\n/, $ARGV[2])) {
+			if (!exists $not_in_next{$elem->[0]}) {
+				if ($msg) {
+					print STDERR $msg;
+					undef $msg;
+				}
+				print STDERR " $elem->[1]\n";
+			}
+		}
+	' "$topic" "$not_in_next" "$not_in_master"
+	exit 1
+fi
+
+<<\DOC_END
+
+This sample hook safeguards topic branches that have been
+published from being rewound.
+
+The workflow assumed here is:
+
+ * Once a topic branch forks from "master", "master" is never
+   merged into it again (either directly or indirectly).
+
+ * Once a topic branch is fully cooked and merged into "master",
+   it is deleted.  If you need to build on top of it to correct
+   earlier mistakes, a new topic branch is created by forking at
+   the tip of the "master".  This is not strictly necessary, but
+   it makes it easier to keep your history simple.
+
+ * Whenever you need to test or publish your changes to topic
+   branches, merge them into "next" branch.
+
+The script, being an example, hardcodes the publish branch name
+to be "next", but it is trivial to make it configurable via
+$GIT_DIR/config mechanism.
+
+With this workflow, you would want to know:
+
+(1) ... if a topic branch has ever been merged to "next".  Young
+    topic branches can have stupid mistakes you would rather
+    clean up before publishing, and things that have not been
+    merged into other branches can be easily rebased without
+    affecting other people.  But once it is published, you would
+    not want to rewind it.
+
+(2) ... if a topic branch has been fully merged to "master".
+    Then you can delete it.  More importantly, you should not
+    build on top of it -- other people may already want to
+    change things related to the topic as patches against your
+    "master", so if you need further changes, it is better to
+    fork the topic (perhaps with the same name) afresh from the
+    tip of "master".
+
+Let's look at this example:
+
+		   o---o---o---o---o---o---o---o---o---o "next"
+		  /       /           /           /
+		 /   a---a---b A     /           /
+		/   /               /           /
+	       /   /   c---c---c---c B         /
+	      /   /   /             \         /
+	     /   /   /   b---b C     \       /
+	    /   /   /   /             \     /
+    ---o---o---o---o---o---o---o---o---o---o---o "master"
+
+
+A, B and C are topic branches.
+
+ * A has one fix since it was merged up to "next".
+
+ * B has finished.  It has been fully merged up to "master" and "next",
+   and is ready to be deleted.
+
+ * C has not merged to "next" at all.
+
+We would want to allow C to be rebased, refuse A, and encourage
+B to be deleted.
+
+To compute (1):
+
+	git rev-list ^master ^topic next
+	git rev-list ^master        next
+
+	if these match, topic has not merged in next at all.
+
+To compute (2):
+
+	git rev-list master..topic
+
+	if this is empty, it is fully merged to "master".
+
+DOC_END
+</file>
+
+<file path="client/.git/hooks/pre-receive.sample">
+#!/bin/sh
+#
+# An example hook script to make use of push options.
+# The example simply echoes all push options that start with 'echoback='
+# and rejects all pushes when the "reject" push option is used.
+#
+# To enable this hook, rename this file to "pre-receive".
+
+if test -n "$GIT_PUSH_OPTION_COUNT"
+then
+	i=0
+	while test "$i" -lt "$GIT_PUSH_OPTION_COUNT"
+	do
+		eval "value=\$GIT_PUSH_OPTION_$i"
+		case "$value" in
+		echoback=*)
+			echo "echo from the pre-receive-hook: ${value#*=}" >&2
+			;;
+		reject)
+			exit 1
+		esac
+		i=$((i + 1))
+	done
+fi
+</file>
+
+<file path="client/.git/hooks/prepare-commit-msg.sample">
+#!/bin/sh
+#
+# An example hook script to prepare the commit log message.
+# Called by "git commit" with the name of the file that has the
+# commit message, followed by the description of the commit
+# message's source.  The hook's purpose is to edit the commit
+# message file.  If the hook fails with a non-zero status,
+# the commit is aborted.
+#
+# To enable this hook, rename this file to "prepare-commit-msg".
+
+# This hook includes three examples. The first one removes the
+# "# Please enter the commit message..." help message.
+#
+# The second includes the output of "git diff --name-status -r"
+# into the message, just before the "git status" output.  It is
+# commented because it doesn't cope with --amend or with squashed
+# commits.
+#
+# The third example adds a Signed-off-by line to the message, that can
+# still be edited.  This is rarely a good idea.
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+/usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' "$COMMIT_MSG_FILE"
+
+# case "$COMMIT_SOURCE,$SHA1" in
+#  ,|template,)
+#    /usr/bin/perl -i.bak -pe '
+#       print "\n" . `git diff --cached --name-status -r`
+# 	 if /^#/ && $first++ == 0' "$COMMIT_MSG_FILE" ;;
+#  *) ;;
+# esac
+
+# SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# git interpret-trailers --in-place --trailer "$SOB" "$COMMIT_MSG_FILE"
+# if test -z "$COMMIT_SOURCE"
+# then
+#   /usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' "$COMMIT_MSG_FILE"
+# fi
+</file>
+
+<file path="client/.git/hooks/push-to-checkout.sample">
+#!/bin/sh
+
+# An example hook script to update a checked-out tree on a git push.
+#
+# This hook is invoked by git-receive-pack(1) when it reacts to git
+# push and updates reference(s) in its repository, and when the push
+# tries to update the branch that is currently checked out and the
+# receive.denyCurrentBranch configuration variable is set to
+# updateInstead.
+#
+# By default, such a push is refused if the working tree and the index
+# of the remote repository has any difference from the currently
+# checked out commit; when both the working tree and the index match
+# the current commit, they are updated to match the newly pushed tip
+# of the branch. This hook is to be used to override the default
+# behaviour; however the code below reimplements the default behaviour
+# as a starting point for convenient modification.
+#
+# The hook receives the commit with which the tip of the current
+# branch is going to be updated:
+commit=$1
+
+# It can exit with a non-zero status to refuse the push (when it does
+# so, it must not modify the index or the working tree).
+die () {
+	echo >&2 "$*"
+	exit 1
+}
+
+# Or it can make any necessary changes to the working tree and to the
+# index to bring them to the desired state when the tip of the current
+# branch is updated to the new commit, and exit with a zero status.
+#
+# For example, the hook can simply run git read-tree -u -m HEAD "$1"
+# in order to emulate git fetch that is run in the reverse direction
+# with git push, as the two-tree form of git read-tree -u -m is
+# essentially the same as git switch or git checkout that switches
+# branches while keeping the local changes in the working tree that do
+# not interfere with the difference between the branches.
+
+# The below is a more-or-less exact translation to shell of the C code
+# for the default behaviour for git's push-to-checkout hook defined in
+# the push_to_deploy() function in builtin/receive-pack.c.
+#
+# Note that the hook will be executed from the repository directory,
+# not from the working tree, so if you want to perform operations on
+# the working tree, you will have to adapt your code accordingly, e.g.
+# by adding "cd .." or using relative paths.
+
+if ! git update-index -q --ignore-submodules --refresh
+then
+	die "Up-to-date check failed"
+fi
+
+if ! git diff-files --quiet --ignore-submodules --
+then
+	die "Working directory has unstaged changes"
+fi
+
+# This is a rough translation of:
+#
+#   head_has_history() ? "HEAD" : EMPTY_TREE_SHA1_HEX
+if git cat-file -e HEAD 2>/dev/null
+then
+	head=HEAD
+else
+	head=$(git hash-object -t tree --stdin </dev/null)
+fi
+
+if ! git diff-index --quiet --cached --ignore-submodules $head --
+then
+	die "Working directory has staged changes"
+fi
+
+if ! git read-tree -u -m "$commit"
+then
+	die "Could not update working tree to new HEAD"
+fi
+</file>
+
+<file path="client/.git/hooks/sendemail-validate.sample">
+#!/bin/sh
+
+# An example hook script to validate a patch (and/or patch series) before
+# sending it via email.
+#
+# The hook should exit with non-zero status after issuing an appropriate
+# message if it wants to prevent the email(s) from being sent.
+#
+# To enable this hook, rename this file to "sendemail-validate".
+#
+# By default, it will only check that the patch(es) can be applied on top of
+# the default upstream branch without conflicts in a secondary worktree. After
+# validation (successful or not) of the last patch of a series, the worktree
+# will be deleted.
+#
+# The following config variables can be set to change the default remote and
+# remote ref that are used to apply the patches against:
+#
+#   sendemail.validateRemote (default: origin)
+#   sendemail.validateRemoteRef (default: HEAD)
+#
+# Replace the TODO placeholders with appropriate checks according to your
+# needs.
+
+validate_cover_letter () {
+	file="$1"
+	# TODO: Replace with appropriate checks (e.g. spell checking).
+	true
+}
+
+validate_patch () {
+	file="$1"
+	# Ensure that the patch applies without conflicts.
+	git am -3 "$file" || return
+	# TODO: Replace with appropriate checks for this patch
+	# (e.g. checkpatch.pl).
+	true
+}
+
+validate_series () {
+	# TODO: Replace with appropriate checks for the whole series
+	# (e.g. quick build, coding style checks, etc.).
+	true
+}
+
+# main -------------------------------------------------------------------------
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = 1
+then
+	remote=$(git config --default origin --get sendemail.validateRemote) &&
+	ref=$(git config --default HEAD --get sendemail.validateRemoteRef) &&
+	worktree=$(mktemp --tmpdir -d sendemail-validate.XXXXXXX) &&
+	git worktree add -fd --checkout "$worktree" "refs/remotes/$remote/$ref" &&
+	git config --replace-all sendemail.validateWorktree "$worktree"
+else
+	worktree=$(git config --get sendemail.validateWorktree)
+fi || {
+	echo "sendemail-validate: error: failed to prepare worktree" >&2
+	exit 1
+}
+
+unset GIT_DIR GIT_WORK_TREE
+cd "$worktree" &&
+
+if grep -q "^diff --git " "$1"
+then
+	validate_patch "$1"
+else
+	validate_cover_letter "$1"
+fi &&
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = "$GIT_SENDEMAIL_FILE_TOTAL"
+then
+	git config --unset-all sendemail.validateWorktree &&
+	trap 'git worktree remove -ff "$worktree"' EXIT &&
+	validate_series
+fi
+</file>
+
+<file path="client/.git/hooks/update.sample">
+#!/bin/sh
+#
+# An example hook script to block unannotated tags from entering.
+# Called by "git receive-pack" with arguments: refname sha1-old sha1-new
+#
+# To enable this hook, rename this file to "update".
+#
+# Config
+# ------
+# hooks.allowunannotated
+#   This boolean sets whether unannotated tags will be allowed into the
+#   repository.  By default they won't be.
+# hooks.allowdeletetag
+#   This boolean sets whether deleting tags will be allowed in the
+#   repository.  By default they won't be.
+# hooks.allowmodifytag
+#   This boolean sets whether a tag may be modified after creation. By default
+#   it won't be.
+# hooks.allowdeletebranch
+#   This boolean sets whether deleting branches will be allowed in the
+#   repository.  By default they won't be.
+# hooks.denycreatebranch
+#   This boolean sets whether remotely creating branches will be denied
+#   in the repository.  By default this is allowed.
+#
+
+# --- Command line
+refname="$1"
+oldrev="$2"
+newrev="$3"
+
+# --- Safety check
+if [ -z "$GIT_DIR" ]; then
+	echo "Don't run this script from the command line." >&2
+	echo " (if you want, you could supply GIT_DIR then run" >&2
+	echo "  $0 <ref> <oldrev> <newrev>)" >&2
+	exit 1
+fi
+
+if [ -z "$refname" -o -z "$oldrev" -o -z "$newrev" ]; then
+	echo "usage: $0 <ref> <oldrev> <newrev>" >&2
+	exit 1
+fi
+
+# --- Config
+allowunannotated=$(git config --type=bool hooks.allowunannotated)
+allowdeletebranch=$(git config --type=bool hooks.allowdeletebranch)
+denycreatebranch=$(git config --type=bool hooks.denycreatebranch)
+allowdeletetag=$(git config --type=bool hooks.allowdeletetag)
+allowmodifytag=$(git config --type=bool hooks.allowmodifytag)
+
+# check for no description
+projectdesc=$(sed -e '1q' "$GIT_DIR/description")
+case "$projectdesc" in
+"Unnamed repository"* | "")
+	echo "*** Project description file hasn't been set" >&2
+	exit 1
+	;;
+esac
+
+# --- Check types
+# if $newrev is 0000...0000, it's a commit to delete a ref.
+zero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')
+if [ "$newrev" = "$zero" ]; then
+	newrev_type=delete
+else
+	newrev_type=$(git cat-file -t $newrev)
+fi
+
+case "$refname","$newrev_type" in
+	refs/tags/*,commit)
+		# un-annotated tag
+		short_refname=${refname##refs/tags/}
+		if [ "$allowunannotated" != "true" ]; then
+			echo "*** The un-annotated tag, $short_refname, is not allowed in this repository" >&2
+			echo "*** Use 'git tag [ -a | -s ]' for tags you want to propagate." >&2
+			exit 1
+		fi
+		;;
+	refs/tags/*,delete)
+		# delete tag
+		if [ "$allowdeletetag" != "true" ]; then
+			echo "*** Deleting a tag is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/tags/*,tag)
+		# annotated tag
+		if [ "$allowmodifytag" != "true" ] && git rev-parse $refname > /dev/null 2>&1
+		then
+			echo "*** Tag '$refname' already exists." >&2
+			echo "*** Modifying a tag is not allowed in this repository." >&2
+			exit 1
+		fi
+		;;
+	refs/heads/*,commit)
+		# branch
+		if [ "$oldrev" = "$zero" -a "$denycreatebranch" = "true" ]; then
+			echo "*** Creating a branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/heads/*,delete)
+		# delete branch
+		if [ "$allowdeletebranch" != "true" ]; then
+			echo "*** Deleting a branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/remotes/*,commit)
+		# tracking branch
+		;;
+	refs/remotes/*,delete)
+		# delete tracking branch
+		if [ "$allowdeletebranch" != "true" ]; then
+			echo "*** Deleting a tracking branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	*)
+		# Anything else (is there anything else?)
+		echo "*** Update hook: unknown type of update to ref $refname of type $newrev_type" >&2
+		exit 1
+		;;
+esac
+
+# --- Finished
+exit 0
+</file>
+
+<file path="client/.git/info/exclude">
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+</file>
+
+<file path="client/.git/refs/heads/main">
+9930eb95efae5be14ee4bb4c589a21740804b1f0
+</file>
+
+<file path="client/.git/COMMIT_EDITMSG">
+delete user listing
+</file>
+
+<file path="client/.git/config">
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+</file>
+
+<file path="client/.git/description">
+Unnamed repository; edit this file 'description' to name the repository.
+</file>
+
+<file path="client/.git/FETCH_HEAD">
+
+</file>
+
+<file path="client/.git/HEAD">
+ref: refs/heads/main
+</file>
+
+<file path="api/models/transaction.model.js">
+import mongoose from 'mongoose';
+
+const transactionSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  listingId: { type: mongoose.Schema.Types.ObjectId, ref: 'Listing', required: true },
+  pidx: { type: String, required: true, unique: true }, // Khalti transaction identifier
+  amount: { type: Number, required: true },
+  status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
+}, { timestamps: true });
+
+const Transaction = mongoose.model('Transaction', transactionSchema);
+export default Transaction;
+</file>
+
+<file path="api/utils/cloudinary.js">
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import dotenv from 'dotenv';
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'samples/ecommerce', // Folder name in your Cloudinary dashboard
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+  },
+});
+
+export { storage };
+</file>
+
+<file path="api/utils/verifyUser.js">
+import { errorHandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
+
+export const verifyToken = (req, res, next) =>{
+    const token = req.cookies.access_token;
+    if(!token) return next(errorHandler(401, 'Unauthorized'));
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) return next(errorHandler(403, 'Token is not valid!'))
+        req.user = user;
+        next();
+    });
+};
+</file>
+
+<file path="client/src/components/Contact.jsx">
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+export default function Contact({ listing }) {
+  const [landlord, setLandlord] = useState(null);
+  const [message, setMessage] = useState('');
+
+  const onChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  useEffect(() => {
+    const fetchLandlord = async () => {
+      try {
+        const res = await fetch(`/api/user/${listing.userRef}`);
+        const data = await res.json();
+        setLandlord(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLandlord();
+  }, [listing.userRef]);
+
+  return (
+    <>
+      {landlord && (
+        <div className='flex flex-col gap-2'>
+          <p>
+            Contact <span className='font-semibold'>{landlord.username}</span>{' '}
+            for{' '}
+            <span className='font-semibold'>{listing.name.toLowerCase()}</span>
+          </p>
+          <textarea
+            name='message'
+            id='message'
+            rows='2'
+            value={message}
+            onChange={onChange}
+            placeholder='Enter your message here...'
+            className='w-full border p-3 rounded-lg'
+          ></textarea>
+
+          <Link
+            to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
+            className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
+          >
+            Send Message
+          </Link>
+        </div>
+      )}
+    </>
+  );
+}
+</file>
+
+<file path="client/src/components/PrivateRoute.jsx">
+import {useSelector} from 'react-redux'
+import { Outlet, Navigate } from 'react-router-dom';
+
+export default function PrivateRoute() {
+  const { currentUser } = useSelector((state) => state.user);
+  return currentUser ? <Outlet/> : <Navigate to='/sign-in' />;
+}
+</file>
+
+<file path="client/src/utils/formatPrice.js">
+export function formatPrice(value) {
+  return `Rs. ${Number(value ?? 0).toLocaleString('en-US')}`;
+}
+</file>
+
+<file path="client/src/utils/getCoverImageUrl.js">
+const FALLBACK_IMAGE_URL =
+  'https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-compressor.jpg';
+
+export function getCoverImageUrl(imageUrls) {
+  const firstValidImage = imageUrls?.find((url) => typeof url === 'string' && url.trim());
+
+  return firstValidImage || FALLBACK_IMAGE_URL;
+}
+</file>
+
+<file path="client/src/firebase.js">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: "mern-estate-e4587.firebaseapp.com",
+  projectId: "mern-estate-e4587",
+  storageBucket: "mern-estate-e4587.firebasestorage.app",
+  messagingSenderId: "603467297516",
+  appId: "1:603467297516:web:e0f007785865def7ecabc9",
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+</file>
+
+<file path="client/src/supabase.js">
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+</file>
+
+<file path="client/jsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
+</file>
+
+<file path="api/models/listing.model.js">
+import mongoose from "mongoose";
+import { use } from "react";
+
+const listingSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true,
+    },
+    description:{
+        type: String,
+        required: true,
+    },
+    address:{
+        type: String,
+        required: true,    
+    },
+    regularPrice:{
+        type: Number,
+        required: true,
+    },
+    discountPrice:{
+        type: Number,
+        required: true,
+    },
+    bathrooms:{
+        type: Number,
+        required: true,
+    },
+    bedrooms:{
+        type: Number,
+        required: true,
+    },
+    furnished:{
+        type: Boolean,
+        required: true,
+    },
+    parking:{
+        type: Boolean,
+        required: true,
+    },
+    type:{
+        type: String,
+        required: true,
+    },
+    offer:{
+        type: Boolean,
+        required: true,
+    },
+    imageUrls:{
+        type: Array,
+        required: true,
+    },
+    userRef:{
+        type: String,
+        required: true,
+    }, 
+    bookingStatus: {
+        type:String,
+        enum: ['available', 'booked', 'sold'],
+        default: 'available',
+    }
+},{timestamps: true});
+
+const Listing = mongoose.model("Listing", listingSchema);
+
+export default Listing;
+</file>
+
+<file path="client/src/components/OAuth.jsx">
+import { GoogleAuthProvider, getAuth, signInWithPopup } from '@firebase/auth';
+import { app } from '../firebase';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+
+
+export default function OAuth() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleGoogleClick = async () =>{
+        try {
+            const provider = new GoogleAuthProvider();
+            const auth = getAuth(app);
+
+            const result = await signInWithPopup(auth, provider);
+            const res = await fetch('/api/auth/google', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    
+                },
+                body: JSON.stringify({
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photo: result.user.photoURL
+                }),
+            });
+            const data = await res.json();
+            console.log("DATA from backend", data);
+            dispatch(signInSuccess(data));
+            navigate('/');
+        } catch (error) {
+            console.log('could not sign in with google', error);
+            
+        }
+    }
+  return (
+    <button onClick={handleGoogleClick} 
+    type='button'
+    className='bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Continue with google</button>
+  )
+}
+</file>
+
+<file path="client/src/pages/Search.jsx">
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ListingItem from '../components/ListingItem';
+
+export default function Search() {
+  const navigate = useNavigate();
+  const [sidebardata, setSidebardata] = useState({
+    searchTerm: '',
+    type: 'all',
+    parking: false,
+    furnished: false,
+    offer: false,
+    sort: 'created_at',
+    order: 'desc',
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    const typeFromUrl = urlParams.get('type');
+    const parkingFromUrl = urlParams.get('parking');
+    const furnishedFromUrl = urlParams.get('furnished');
+    const offerFromUrl = urlParams.get('offer');
+    const sortFromUrl = urlParams.get('sort');
+    const orderFromUrl = urlParams.get('order');
+
+    if (
+      searchTermFromUrl ||
+      typeFromUrl ||
+      parkingFromUrl ||
+      furnishedFromUrl ||
+      offerFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
+      setSidebardata({
+        searchTerm: searchTermFromUrl || '',
+        type: typeFromUrl || 'all',
+        parking: parkingFromUrl === 'true' ? true : false,
+        furnished: furnishedFromUrl === 'true' ? true : false,
+        offer: offerFromUrl === 'true' ? true : false,
+        sort: sortFromUrl || 'created_at',
+        order: orderFromUrl || 'desc',
+      });
+    }
+
+    const fetchListings = async () => {
+      setLoading(true);
+      setShowMore(false);
+      const searchQuery = urlParams.toString();
+      const res = await fetch(`/api/listing/get?${searchQuery}`);
+      const data = await res.json();
+
+      console.log('fetched listings:', data); // TEMP: check this in your console
+
+      const safeData = Array.isArray(data) ? data.filter(Boolean) : [];
+
+      if (safeData.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+      setListings(safeData);
+      setLoading(false);
+    };
+
+    fetchListings();
+  }, [window.location.search]);
+
+  const handleChange = (e) => {
+    if (e.target.id === 'all' || e.target.id === 'rent' || e.target.id === 'sale') {
+      setSidebardata({ ...sidebardata, type: e.target.id });
+    }
+
+    if (e.target.id === 'searchTerm') {
+      setSidebardata({ ...sidebardata, searchTerm: e.target.value });
+    }
+
+    if (
+      e.target.id === 'parking' ||
+      e.target.id === 'furnished' ||
+      e.target.id === 'offer'
+    ) {
+      setSidebardata({
+        ...sidebardata,
+        [e.target.id]:
+          e.target.checked || e.target.checked === 'true' ? true : false,
+      });
+    }
+
+    if (e.target.id === 'sort_order') {
+      const sort = e.target.value.split('_')[0] || 'created_at';
+      const order = e.target.value.split('_')[1] || 'desc';
+      setSidebardata({ ...sidebardata, sort, order });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams();
+    urlParams.set('searchTerm', sidebardata.searchTerm);
+    urlParams.set('type', sidebardata.type);
+    urlParams.set('parking', sidebardata.parking);
+    urlParams.set('furnished', sidebardata.furnished);
+    urlParams.set('offer', sidebardata.offer);
+    urlParams.set('sort', sidebardata.sort);
+    urlParams.set('order', sidebardata.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('startIndex', startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    const safeData = Array.isArray(data) ? data.filter(Boolean) : [];
+    if (safeData.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...safeData]);
+  };
+
+  return (
+    <div className='flex flex-col md:flex-row'>
+      <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
+          <div className='flex items-center gap-2'>
+            <label className='whitespace-nowrap font-semibold'>Search Term:</label>
+            <input
+              type='text'
+              id='searchTerm'
+              placeholder='Search...'
+              className='border rounded-lg p-3 w-full'
+              value={sidebardata.searchTerm}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='flex gap-2 flex-wrap items-center'>
+            <label className='font-semibold'>Type:</label>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='all' className='w-5' onChange={handleChange} checked={sidebardata.type === 'all'} />
+              <span>Rent & Sale</span>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='rent' className='w-5' onChange={handleChange} checked={sidebardata.type === 'rent'} />
+              <span>Rent</span>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='sale' className='w-5' onChange={handleChange} checked={sidebardata.type === 'sale'} />
+              <span>Sale</span>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='offer' className='w-5' onChange={handleChange} checked={sidebardata.offer} />
+              <span>Offer</span>
+            </div>
+          </div>
+          <div className='flex gap-2 flex-wrap items-center'>
+            <label className='font-semibold'>Amenities:</label>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='parking' className='w-5' onChange={handleChange} checked={sidebardata.parking} />
+              <span>Parking</span>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' id='furnished' className='w-5' onChange={handleChange} checked={sidebardata.furnished} />
+              <span>Furnished</span>
+            </div>
+          </div>
+          <div className='flex items-center gap-2'>
+            <label className='font-semibold'>Sort:</label>
+            <select
+              onChange={handleChange}
+              defaultValue={'created_at_desc'}
+              id='sort_order'
+              className='border rounded-lg p-3'
+            >
+              <option value='regularPrice_desc'>Price high to low</option>
+              <option value='regularPrice_asc'>Price low to high</option>
+              <option value='createdAt_desc'>Latest</option>
+              <option value='createdAt_asc'>Oldest</option>
+            </select>
+          </div>
+          <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+            Search
+          </button>
+        </form>
+      </div>
+      <div className='flex-1'>
+        <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
+          Listing results:
+        </h1>
+        <div className='p-7 flex flex-wrap gap-4'>
+          {!loading && listings.length === 0 && (
+            <p className='text-xl text-slate-700'>No listing found!</p>
+          )}
+          {loading && (
+            <p className='text-xl text-slate-700 text-center w-full'>
+              Loading...
+            </p>
+          )}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem key={listing._id} listing={listing} />
+            ))}
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className='text-green-700 hover:underline p-7 text-center w-full'
+            >
+              Show more
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="client/eslint.config.js">
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+])
+</file>
+
+<file path="client/README.md">
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+
+Note: This will impact Vite dev & build performances.
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+</file>
+
+<file path="api/utils/error.js">
+export const errorHandler = ( statusCode, message)=> {
+    const error = new Error();
+    error.statusCode = statusCode;
+    error.message=message;
+    return error;
+}
+</file>
+
+<file path="client/src/components/ListingItem.jsx">
+import { Link } from 'react-router-dom';
+import { MdLocationOn } from 'react-icons/md';
+import { formatPrice } from '../utils/formatPrice';
+
+export default function ListingItem({ listing }) {
+  if (!listing) return null;
+
+  const price = listing.offer ? listing.discountPrice : listing.regularPrice;
+
+  return (
+    <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]'>
+      <Link to={`/listing/${listing._id}`}>
+        <img
+          src={
+            listing.imageUrls?.[0] ||
+            'https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-compressor.jpg'
+          }
+          alt='listing cover'
+          className='h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300'
+        />
+        <div className='p-3 flex flex-col gap-2 w-full'>
+          <p className='truncate text-lg font-semibold text-slate-700'>
+            {listing.name}
+          </p>
+          <div className='flex items-center gap-1'>
+            <MdLocationOn className='h-4 w-4 text-green-700' />
+            <p className='text-sm text-gray-600 truncate w-full'>
+              {listing.address}
+            </p>
+          </div>
+          <p className='text-sm text-gray-600 line-clamp-2'>
+            {listing.description}
+          </p>
+          <p className='text-slate-500 mt-2 font-semibold'>
+            {formatPrice(price)}
+            {listing.type === 'rent' && ' / month'}
+          </p>
+          <div className='text-slate-700 flex gap-4'>
+            <div className='font-bold text-xs'>
+              {listing.bedrooms > 1 ? `${listing.bedrooms} beds` : `${listing.bedrooms} bed`}
+            </div>
+            <div className='font-bold text-xs'>
+              {listing.bathrooms > 1 ? `${listing.bathrooms} baths` : `${listing.bathrooms} bath`}
+            </div>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+}
+</file>
+
+<file path="client/src/redux/store.js">
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import userReducer from './user/userSlice';
+import { persistReducer, persistStore } from 'redux-persist';
+import createWebStorage from "redux-persist/es/storage/createWebStorage";
+
+const storage = createWebStorage("local");
+const rootReducer = combineReducers({
+  user: userReducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
+export const persistor = persistStore(store);
+</file>
+
+<file path="api/routes/listing.route.js">
+import express from 'express';
+import multer from 'multer';
+import { storage } from '../utils/cloudinary.js'; // Import your new Cloudinary config
+import {
+  createListing,
+  deleteListing,
+  updateListing,
+  getListing,
+  getListings,
+} from '../controllers/listing.controller.js';
+import { verifyToken } from '../utils/verifyUser.js';
+
+// Initialize multer with Cloudinary storage settings
+// Change '6' to the maximum number of images allowed per listing
+const upload = multer({ storage }).array('images', 6); 
+
+const router = express.Router();
+
+// Middleware execution order: 1st Verify User -> 2nd Upload Images -> 3rd Save to Database
+router.post('/create', verifyToken, upload, createListing);
+router.delete('/delete/:id', verifyToken, deleteListing);
+router.post('/update/:id', verifyToken, upload, updateListing);
+router.get('/get/:id', getListing);
+router.get('/get', getListings);
+
+export default router;
+</file>
+
+<file path="client/src/pages/CreateListing.jsx">
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { supabase } from '../supabase';
+
+export default function CreateListing() {
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const params = useParams();
+  const isEditMode = Boolean(params.listingId);
+
+  const inputStyle =
+    'border p-3 rounded-lg bg-white border-gray-300 w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500';
+
+  const [files, setFiles] = useState([]);
+  const [formData, setFormData] = useState({
+    imageUrls: [],
+    name: '',
+    description: '',
+    address: '',
+    type: '',
+    bedrooms: 1,
+    bathrooms: 1,
+    regularPrice: 1000,
+    discountPrice: 500,
+    parking: false,
+    furnished: false,
+    offer: false,
+  });
+  const [imageUploadError, setImageUploadError] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      if (!isEditMode) return;
+
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const data = await res.json();
+
+        if (data.success === false) {
+          setError(data.message || 'Failed to load listing');
+          setLoading(false);
+          return;
+        }
+
+        setFormData({
+          imageUrls: data.imageUrls || [],
+          name: data.name || '',
+          description: data.description || '',
+          address: data.address || '',
+          type: data.type || '',
+          bedrooms: data.bedrooms ?? 1,
+          bathrooms: data.bathrooms ?? 1,
+          regularPrice: data.regularPrice ?? 1000,
+          discountPrice: data.discountPrice ?? 500,
+          parking: Boolean(data.parking),
+          furnished: Boolean(data.furnished),
+          offer: Boolean(data.offer),
+        });
+        setError(false);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListing();
+  }, [isEditMode, params.listingId]);
+
+  const handleImageSubmit = (e) => {
+    e.preventDefault();
+
+    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+      setUploading(true);
+      setImageUploadError(false);
+
+      const promises = [];
+      for (let i = 0; i < files.length; i++) {
+        promises.push(storeImage(files[i]));
+      }
+
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.concat(urls),
+          });
+          setImageUploadError(false);
+          setUploading(false);
+        })
+        .catch(() => {
+          setImageUploadError('Image upload failed (2mb max per image)');
+          setUploading(false);
+        });
+    } else {
+      setImageUploadError('You can only upload up to 6 images per listing');
+      setUploading(false);
+    }
+  };
+
+  const storeImage = async (file) => {
+    const fileName = `${Date.now()}-${file.name}`;
+
+    const { error } = await supabase.storage
+      .from('listing-images')
+      .upload(fileName, file);
+
+    if (error) {
+      throw error;
+    }
+
+    const { data: urlData } = supabase.storage
+      .from('listing-images')
+      .getPublicUrl(fileName);
+
+    return urlData.publicUrl;
+  };
+
+  const handleRemoveImage = (index) => {
+    setFormData({
+      ...formData,
+      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleChange = (e) => {
+    if (e.target.id === 'sale' || e.target.id === 'rent') {
+      setFormData({
+        ...formData,
+        type: e.target.id,
+      });
+    }
+
+    if (
+      e.target.id === 'parking' ||
+      e.target.id === 'furnished' ||
+      e.target.id === 'offer'
+    ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.checked,
+      });
+    }
+
+    if (
+      e.target.type === 'number' ||
+      e.target.type === 'text' ||
+      e.target.type === 'textarea'
+    ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (formData.imageUrls.length < 1) {
+        return setError('You must upload at least one image');
+      }
+      if (+formData.regularPrice < +formData.discountPrice) {
+        return setError('Discounted price must be lower than regular price');
+      }
+      if (!formData.type) {
+        return setError('Please select Sell or Rent');
+      }
+
+      setLoading(true);
+      setError(false);
+
+      const res = await fetch(
+        isEditMode
+          ? `/api/listing/update/${params.listingId}`
+          : '/api/listing/create',
+        {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          userRef: currentUser._id,
+        }),
+        }
+      );
+
+      const data = await res.json();
+      setLoading(false);
+
+      if (data.success === false) {
+        setError(data.message);
+        return;
+      }
+
+      navigate(`/listing/${data._id || params.listingId}`);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <main className='p-3 max-w-4xl mx-auto'>
+      <h1 className='text-3xl font-semibold text-center my-7'>
+        {isEditMode ? 'Update Listing' : 'Create a Listing'}
+      </h1>
+      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-6'>
+        {/* LEFT COLUMN */}
+        <div className='flex flex-col gap-4 flex-1'>
+          <input
+            type='text'
+            placeholder='Name'
+            className={inputStyle}
+            id='name'
+            maxLength='62'
+            minLength='10'
+            required
+            onChange={handleChange}
+            value={formData.name}
+          />
+          <input
+            type='text'
+            placeholder='Description'
+            className={inputStyle}
+            id='description'
+            maxLength='62'
+            minLength='10'
+            required
+            onChange={handleChange}
+            value={formData.description}
+          />
+          <input
+            type='text'
+            placeholder='Address'
+            className={inputStyle}
+            id='address'
+            required
+            onChange={handleChange}
+            value={formData.address}
+          />
+
+          {/* CHECKBOXES */}
+          <div className='flex flex-wrap gap-4'>
+            <div className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                id='sale'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.type === 'sale'}
+              />
+              <span>Sell</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                id='rent'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.type === 'rent'}
+              />
+              <span>Rent</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                id='parking'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.parking}
+              />
+              <span>Parking spot</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                id='furnished'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.furnished}
+              />
+              <span>Furnished</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                id='offer'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.offer}
+              />
+              <span>Offer</span>
+            </div>
+          </div>
+
+          {/* NUMBER FIELDS */}
+          <div className='flex flex-wrap gap-6'>
+            <div className='flex items-center gap-2'>
+              <input
+                type='number'
+                id='bedrooms'
+                min='1'
+                max='10'
+                required
+                className='p-3 border border-gray-300 rounded-lg bg-white w-20'
+                onChange={handleChange}
+                value={formData.bedrooms}
+              />
+              <p>Beds</p>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='number'
+                id='bathrooms'
+                min='1'
+                max='10'
+                required
+                className='p-3 border border-gray-300 rounded-lg bg-white w-20'
+                onChange={handleChange}
+                value={formData.bathrooms}
+              />
+              <p>Baths</p>
+            </div>
+            <div className='flex items-center gap-2'>
+              <input
+                type='number'
+                id='regularPrice'
+                min='1'
+                max='10000000'
+                required
+                className='p-3 border border-gray-300 rounded-lg bg-white w-24'
+                onChange={handleChange}
+                value={formData.regularPrice}
+              />
+              <div className='flex flex-col items-center'>
+                <p>Regular price</p>
+                <span className='text-xs'>(Rs. / month)</span>
+              </div>
+            </div>
+            {formData.offer && (
+              <div className='flex items-center gap-2'>
+                <input
+                  type='number'
+                  id='discountPrice'
+                  min='0'
+                  max='10000000'
+                  required
+                  className='p-3 border border-gray-300 rounded-lg bg-white w-24'
+                  onChange={handleChange}
+                  value={formData.discounPrice}
+                />
+                <div className='flex flex-col items-center'>
+                  <p>Discount price</p>
+                  <span className='text-xs'>(Rs. / month)</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN — IMAGES */}
+        <div className='flex flex-col flex-1 gap-4 self-start'>
+          <p className='font-semibold'>
+            Images:
+            <span className='font-normal text-gray-600 ml-2'>
+              The first image will be the cover (max 6)
+            </span>
+          </p>
+
+          <div className='flex gap-4'>
+            <input
+              onChange={(e) => setFiles(e.target.files)}
+              className='p-3 border border-gray-300 rounded w-full bg-white
+              file:border-0 file:bg-gray-100 file:mr-4 file:py-2 file:rounded
+              hover:file:bg-gray-200'
+              type='file'
+              id='images'
+              accept='image/*'
+              multiple
+            />
+            <button
+              type='button'
+              onClick={handleImageSubmit}
+              disabled={uploading}
+              className='p-3 text-green-700 border border-green-700 rounded
+              uppercase hover:shadow-lg disabled:opacity-80'
+            >
+              {uploading ? 'Uploading...' : 'Upload'}
+            </button>
+          </div>
+
+          {imageUploadError && (
+            <p className='text-red-700 text-sm'>{imageUploadError}</p>
+          )}
+
+          {formData.imageUrls.length > 0 &&
+            formData.imageUrls.map((url, index) => (
+              <div
+                key={url}
+                className='flex justify-between p-3 border items-center'
+              >
+                <img
+                  src={url}
+                  alt='listing image'
+                  className='w-20 h-20 object-cover rounded-lg'
+                />
+                <button
+                  type='button'
+                  onClick={() => handleRemoveImage(index)}
+                  className='p-3 text-red-700 rounded-lg uppercase hover:opacity-75'
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+
+          <button
+            type='submit'
+            disabled={loading || uploading}
+            className='p-3 bg-slate-700 text-white rounded-lg uppercase
+            hover:opacity-95 disabled:opacity-80'
+          >
+            {loading ? (isEditMode ? 'Updating...' : 'Creating...') : isEditMode ? 'Update Listing' : 'Create Listing'}
+          </button>
+
+          {error && <p className='text-red-700 text-sm'>{error}</p>}
+        </div>
+      </form>
+    </main>
+  );
+}
+</file>
+
+<file path="client/src/pages/ListingItem.jsx">
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from 'swiper';
+import { useSelector } from 'react-redux';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/bundle';
+import {
+  FaBath,
+  FaBed,
+  FaChair,
+  FaMapMarkedAlt,
+  FaMapMarkerAlt,
+  FaParking,
+  FaShare,
+} from 'react-icons/fa';
+import Contact from '../components/Contact';
+import { formatPrice } from '../utils/formatPrice';
+import { getCoverImageUrl } from '../utils/getCoverImageUrl';
+
+// https://sabe.io/blog/javascript-format-numbers-commas#:~:text=The%20best%20way%20to%20format,format%20the%20number%20with%20commas.
+
+export default function Listing() {
+  SwiperCore.use([Navigation]);
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
+  const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const data = await res.json();
+        if (data.success === false) {
+          setError(true);
+          setLoading(false);
+          return;
+        }
+        setListing(data);
+        setLoading(false);
+        setError(false);
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
+    };
+    fetchListing();
+  }, [params.listingId]);
+
+  return (
+    <main>
+      {loading && <p className='text-center my-7 text-2xl'>Loading...</p>}
+      {error && (
+        <p className='text-center my-7 text-2xl'>Something went wrong!</p>
+      )}
+      {listing && !loading && !error && (
+        <div>
+          <Swiper navigation>
+            {listing.imageUrls.map((url) => (
+              <SwiperSlide key={url}>
+                <div className='h-[550px] w-full'>
+                  <img
+                    src={url || getCoverImageUrl(listing.imageUrls)}
+                    alt={listing.name}
+                    className='h-full w-full object-cover'
+                    loading='eager'
+                    onError={(event) => {
+                      event.currentTarget.src = getCoverImageUrl(listing.imageUrls);
+                    }}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
+            <FaShare
+              className='text-slate-500'
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                setCopied(true);
+                setTimeout(() => {
+                  setCopied(false);
+                }, 2000);
+              }}
+            />
+          </div>
+          {copied && (
+            <p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>
+              Link copied!
+            </p>
+          )}
+          <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
+            <p className='text-2xl font-semibold'>
+              {listing.name} - {formatPrice(listing.offer ? listing.discountPrice : listing.regularPrice)}
+              {listing.type === 'rent' && ' / month'}
+            </p>
+            <p className='flex items-center mt-6 gap-2 text-slate-600  text-sm'>
+              <FaMapMarkerAlt className='text-green-700' />
+              {listing.address}
+            </p>
+            <div className='flex gap-4'>
+              <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
+                {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
+              </p>
+              {listing.offer && (
+                <p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
+                  {formatPrice(+listing.regularPrice - +listing.discountPrice)} OFF
+                </p>
+              )}
+            </div>
+            <p className='text-slate-800'>
+              <span className='font-semibold text-black'>Description - </span>
+              {listing.description}
+            </p>
+            <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaBed className='text-lg' />
+                {listing.bedrooms > 1
+                  ? `${listing.bedrooms} beds `
+                  : `${listing.bedrooms} bed `}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaBath className='text-lg' />
+                {listing.bathrooms > 1
+                  ? `${listing.bathrooms} baths `
+                  : `${listing.bathrooms} bath `}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaParking className='text-lg' />
+                {listing.parking ? 'Parking spot' : 'No Parking'}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaChair className='text-lg' />
+                {listing.furnished ? 'Furnished' : 'Unfurnished'}
+              </li>
+            </ul>
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
+              <button
+                onClick={() => setContact(true)}
+                className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
+              >
+                Contact landlord
+              </button>
+            )}
+            {contact && <Contact listing={listing} />}
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
+</file>
+
+<file path="client/src/redux/user/userSlice.js">
+import {createSlice} from '@reduxjs/toolkit';
+
+const initialState = {
+    currentUser: null,
+    error:null,
+    loading: false,
+    
+}
+
+const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers:{
+        signInStart: (state) =>{
+            state.loading = true;
+        },
+        signInSuccess: (state, action) =>{
+            state.currentUser = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
+        signInFailure: (state, action) =>{
+            state.loading = false;
+            state.error = action.payload;
+        },
+        updateUserStart: (state) => {
+            state.loading = true;
+        },
+        updateUserSuccess: (state, action) => {
+            state.currentUser = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
+        updateUserFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        deleteUserStart: (state) => {
+            state.loading = true;
+        },
+        deleteUserSuccess: (state) => {
+            state.currentUser = null;
+            state.loading = false;
+            state.error = null;
+        },
+        deleteUserFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        signOutUserStart: (state) => {
+            state.loading = true;
+        },
+        signOutUserSuccess: (state) => {
+            state.currentUser = null;
+            state.loading = false;
+            state.error = null;
+        },
+        signOutUserFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+    },
+});
+
+export const {
+    signInStart, 
+    signInSuccess, 
+    signInFailure, 
+    updateUserStart,
+    updateUserSuccess,
+    updateUserFailure,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFailure,
+    signOutUserStart,
+    signOutUserSuccess,
+    signOutUserFailure,
+    } = userSlice.actions;
+export default userSlice.reducer;
+</file>
+
+<file path="client/index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>client</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="api/controllers/listing.controller.js">
+import Listing from '../models/listing.model.js';
+import { errorHandler } from '../utils/error.js';
+
+export const createListing = async (req, res, next) => {
+  try {
+    let imageUrls = [];
+    if (req.files && req.files.length > 0) {
+      imageUrls = req.files.map((file) => file.path);
+    }
+
+    // Safely parse or extract string/array data sent from frontend
+    const listingData = {
+      ...req.body,
+      imageUrls: imageUrls.length > 0 ? imageUrls : req.body.imageUrls,
+      userRef: req.user.id, // Securely bind the listing to the authenticated user
+    };
+
+    const listing = await Listing.create(listingData);
+    return res.status(201).json(listing);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteListing = async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+    if (req.user.id !== listing.userRef.toString()) {
+      return next(errorHandler(403, 'You can delete only your listing!'));
+    }
+
+    await Listing.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ message: 'Listing deleted successfully!' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateListing = async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+    if (req.user.id !== listing.userRef.toString()) {
+      return next(errorHandler(403, 'You can only update your own listing!'));
+    }
+
+    const updateData = { ...req.body };
+
+    // Append new images instead of wiping out old ones completely
+    if (req.files && req.files.length > 0) {
+      const newImageUrls = req.files.map((file) => file.path);
+      const existingUrls = req.body.imageUrls ? (Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls]) : [];
+      updateData.imageUrls = [...existingUrls, ...newImageUrls];
+    }
+
+    const updatedListing = await Listing.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true, runValidators: true } // Ensures data types match schema rules
+    );
+    return res.status(200).json(updatedListing);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getListing = async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+    return res.status(200).json(listing);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getListings = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+
+    // Direct Boolean mappings for exact query matching
+    let offer = req.query.offer;
+    if (offer === undefined || offer === 'all') {
+      offer = { $in: [false, true] };
+    } else {
+      offer = offer === 'true';
+    }
+
+    let furnished = req.query.furnished;
+    if (furnished === undefined || furnished === 'all') {
+      furnished = { $in: [false, true] };
+    } else {
+      furnished = furnished === 'true';
+    }
+
+    let parking = req.query.parking;
+    if (parking === undefined || parking === 'all') {
+      parking = { $in: [false, true] };
+    } else {
+      parking = parking === 'true';
+    }
+
+    let type = req.query.type;
+    if (type === undefined || type === 'all') {
+      type = { $in: ['sale', 'rent'] };
+    }
+
+    const searchTerm = req.query.searchTerm || '';
+    const sort = req.query.sort || 'createdAt';
+    const order = req.query.order === 'asc' ? 1 : -1; // MongoDB sort order mapping
+
+    const listings = await Listing.find({
+      name: { $regex: searchTerm, $options: 'i' },
+      offer,
+      furnished,
+      parking,
+      type,
+    })
+      .sort({ [sort]: order })
+      .limit(limit)
+      .skip(startIndex);
+
+    return res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
+</file>
+
+<file path="api/models/user.model.js">
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+    username: {
+        type:String,
+        required: true,
+        unique: true,
+
+    },
+    email: {
+        type:String,
+        required: true,
+        unique: true,
+
+    },
+    password: {
+        type:String,
+        required: true,
+
+    },
+    avatar: {
+        type:String,
+        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    },
+}, {timestamps: true});
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
+</file>
+
+<file path="client/src/pages/SignIn.jsx">
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {signInStart, signInFailure, signInSuccess} from '../redux/user/userSlice.js';
+import OAuth from '../components/OAuth.jsx';
+
+export default function SignIn() { 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({})
+  const {loading, error} = useSelector((state) => state.user);
+  const handleChange = (e)=>{
+    setFormData(
+      {
+        ...formData,
+        [e.target.id]: e.target.value,
+
+      }
+    );
+  };
+
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    try {
+      dispatch(signInStart());
+      const res = await fetch('/api/auth/signin', 
+        
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            
+          },
+          body: JSON.stringify(formData),
+        } );
+        const data = await res.json();
+        if(data.success === false){
+          dispatch(signInFailure(data.message));
+          return;
+        }
+        dispatch(signInSuccess(data));
+        navigate('/');
+      
+    } catch (error) {
+      dispatch(signInFailure(error.message));
+    }
+
+  };
+
+  
+  return (
+    <div className='p-3 max-w-lg mx-auto'>
+      <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <input type="email" placeholder='Email'
+        className='border p-3 rounded-lg' id='email' onChange={handleChange}/>
+        <input type="password" placeholder='Password'
+        className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
+        <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading ? "Loading..." : 'Sign In'}
+        </button>
+        <OAuth/>
+      </form>
+
+      <div className='flex gap-2 mt-5'>
+        <p>Don't have an account?</p>
+        <Link to={"/sign-up"} >
+        <span className='text-blue-700'>Sign up</span>
+        
+        </Link>
+        
+
+
+      </div>
+      {error && <p className='text-red-500 mt-5'>{error}</p>}
+
+
+    </div>
+  )
+}
+</file>
+
+<file path="client/.gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</file>
+
+<file path="api/routes/auth.route.js">
+import express from 'express';
+import { signup, signin, google, signOut } from '../controllers/auth.controller.js';
+
+const router = express.Router();
+
+router.post('/signup',signup)
+router.post('/signin',signin)
+router.post('/google',google)
+router.get('/signout',signOut)
+
+export default router;
+</file>
+
+<file path="client/src/pages/About.jsx">
+export default function About() {
+  return (
+    <div className='py-20 px-4 max-w-6xl mx-auto'>
+      <h1 className='text-3xl font-bold mb-4 text-slate-800'>
+        About AbinasEstate
+      </h1>
+      <p className='mb-4 text-slate-700'>
+        AbinasEstate is a leading real estate agency that specializes in
+        helping clients buy, sell, and rent properties in the most desirable
+        neighborhoods. Our team of experienced agents is dedicated to
+        providing exceptional service and making the buying and selling
+        process as smooth as possible.
+      </p>
+      <p className='mb-4 text-slate-700'>
+        Our mission is to help our clients achieve their real estate goals by
+        providing expert advice, personalized service, and a deep
+        understanding of the local market. Whether you are looking to buy,
+        sell, or rent a property, we are here to help you every step of the
+        way.
+      </p>
+      <p className='mb-4 text-slate-700'>
+        Our team of agents has a wealth of experience and knowledge in the
+        real estate industry, and we are committed to providing the highest
+        level of service to our clients. We believe that buying or selling a
+        property should be an exciting and rewarding experience, and we are
+        dedicated to making that a reality for each and every one of our
+        clients.
+      </p>
+    </div>
+  );
+}
+</file>
+
+<file path=".gitignore">
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules/
+dist
+dist-ssr
+*.local
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+.env
+</file>
+
+<file path="api/routes/user.route.js">
+import express from 'express';
+import {deleteUser, test, updateUser, getUserListings } from '../controllers/user.controller.js';
+import { verifyToken } from '../utils/verifyUser.js';
+import { getUser } from '../controllers/user.controller.js';
+
+const router = express.Router();
+
+router.get('/test', test);
+
+router.post('/update/:id', verifyToken, updateUser);
+router.delete('/delete/:id', verifyToken, deleteUser);
+router.get('/listings/:id', verifyToken, getUserListings);
+router.get('/:id', getUser);
+
+
+export default router;
+</file>
+
+<file path="client/src/pages/Home.jsx">
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from 'swiper';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/bundle';
+import ListingItem from '../components/ListingItem';
+import { getCoverImageUrl } from '../utils/getCoverImageUrl';
+
+export default function Home() {
+  const [offerListings, setOfferListings] = useState([]);
+  const [saleListings, setSaleListings] = useState([]);
+  const [rentListings, setRentListings] = useState([]);
+  SwiperCore.use([Navigation]);
+
+  useEffect(() => {
+    const fetchOfferListings = async () => {
+      try {
+        const res = await fetch('/api/listing/get?offer=true&limit=4');
+        const data = await res.json();
+        setOfferListings(data);
+        fetchRentListings();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchRentListings = async () => {
+      try {
+        const res = await fetch('/api/listing/get?type=rent&limit=4');
+        const data = await res.json();
+        setRentListings(data);
+        fetchSaleListings();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchSaleListings = async () => {
+      try {
+        const res = await fetch('/api/listing/get?type=sale&limit=4');
+        const data = await res.json();
+        setSaleListings(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOfferListings();
+  }, []);
+
+  return (
+    <div>
+      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
+        <h1 className='text-slate-700 font-bold text-3xl lg:text-6xl'>
+          Find your next <span className='text-slate-500'>perfect</span>
+          <br />
+          place with ease
+        </h1>
+        <div className='text-gray-400 text-xs sm:text-sm'>
+          AbinasEstate is the best place to find your next perfect place to
+          live.
+          <br />
+          We have a wide range of properties for you to choose from.
+        </div>
+        <Link
+          to={'/search'}
+          className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'
+        >
+          Let's get started...
+        </Link>
+      </div>
+
+      {offerListings && offerListings.length > 0 && (
+        <Swiper navigation>
+          {offerListings.map((listing) => (
+            <SwiperSlide key={listing._id}>
+              <div className='h-125 w-full'>
+                <img
+                  src={getCoverImageUrl(listing.imageUrls)}
+                  alt={listing.name}
+                  className='h-full w-full object-cover'
+                  loading='eager'
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+
+      <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10'>
+        {offerListings && offerListings.length > 0 && (
+          <div>
+            <div className='my-3'>
+              <h2 className='text-2xl font-semibold text-slate-600'>
+                Recent offers
+              </h2>
+              <Link className='text-sm text-blue-800 hover:underline' to='/search?offer=true'>
+                Show more offers
+              </Link>
+            </div>
+            <div className='flex flex-wrap gap-4'>
+              {offerListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {rentListings && rentListings.length > 0 && (
+          <div>
+            <div className='my-3'>
+              <h2 className='text-2xl font-semibold text-slate-600'>
+                Recent places for rent
+              </h2>
+              <Link className='text-sm text-blue-800 hover:underline' to='/search?type=rent'>
+                Show more places for rent
+              </Link>
+            </div>
+            <div className='flex flex-wrap gap-4'>
+              {rentListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {saleListings && saleListings.length > 0 && (
+          <div>
+            <div className='my-3'>
+              <h2 className='text-2xl font-semibold text-slate-600'>
+                Recent places for sale
+              </h2>
+              <Link className='text-sm text-blue-800 hover:underline' to='/search?type=sale'>
+                Show more places for sale
+              </Link>
+            </div>
+            <div className='flex flex-wrap gap-4'>
+              {saleListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="client/vite.config.js">
+import { defineConfig } from 'vite'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': { 
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    },
+  },
+  
+  plugins: [
+    react(),
+    tailwindcss(),
+    babel({ presets: [reactCompilerPreset()] })
+  ],
+})
+</file>
+
+<file path="client/src/pages/SignUp.jsx">
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import OAuth from '../components/OAuth';
+
+export default function SignUp() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({})
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const handleChange = (e)=>{
+    setFormData(
+      {
+        ...formData,
+        [e.target.id]: e.target.value,
+
+      }
+    );
+  };
+
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch('/api/auth/signup', 
+        
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            
+          },
+          body: JSON.stringify(formData),
+        } );
+        const data = await res.json();
+        if(data.success === false){
+          setError(data.message);
+          setLoading(false);
+          return;
+        }
+        setLoading(false);
+        setError(null);
+        navigate('/sign-in');
+      
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+      
+    }
+
+  };
+
+  
+  return (
+    <div className='p-3 max-w-lg mx-auto'>
+      <h1 className='text-3xl text-center font-semibold my-7'>SignUp</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <input type="text" placeholder='Username'
+        className='border p-3 rounded-lg' id='username' onChange={handleChange}/>
+        <input type="email" placeholder='Email'
+        className='border p-3 rounded-lg' id='email' onChange={handleChange}/>
+        <input type="password" placeholder='Password'
+        className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
+        <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading ? "Loading..." : 'Sign Up'}
+        </button>
+        <OAuth/>
+      </form>
+
+      <div className='flex gap-2 mt-5'>
+        <p>Have an account?</p>
+        <Link to={"/sign-in"} >
+        <span className='text-blue-700'>Sign in</span>
+        
+        </Link>
+        
+
+
+      </div>
+      {error && <p className='text-red-500 mt-5'>{error}</p>}
+
+
+    </div>
+  )
+}
+</file>
+
+<file path="client/src/main.jsx">
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import {persistor, store} from './redux/store.js';
+import {Provider} from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
+)
+</file>
+
+<file path="api/controllers/user.controller.js">
+import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../models/user.model.js';
+import { errorHandler } from '../utils/error.js';
+import Listing from '../models/listing.model.js';
+
+
+export const test = (req,res)=>{
+    res.json({
+        message: "Api route is working!"
+    });
+}
+
+
+export const updateUser = async (req,res,next)=>{
+    if(req.user.id !== req.params.id) return next(errorHandler(403, "You can update only your account!"));
+    try {
+        if(req.body.password){
+            req.body.password = bcryptjs.hashSync(req.body.password, 10);
+        }
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+            $set: {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+                avatar: req.body.avatar,
+            }
+        }, { new: true }
+        );
+        const {password, ...rest} = updatedUser._doc;
+        res.status(200).json(rest);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deleteUser = async (req,res,next)=>{
+    if(req.user.id !== req.params.id) return next(errorHandler(403, "You can delete only your account!"));
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie("access_token");
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getUserListings = async (req, res, next) => {
+
+
+  if (req.user.id === req.params.id) {
+    try {
+      const listings = await Listing.find({ userRef: req.params.id });
+      res.status(200).json(listings);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(errorHandler(403, 'You can access only your listings!'));
+  }
+};
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(errorHandler(404, 'User not found!'));
+    const { password: pass, ...rest } = user._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+</file>
+
+<file path="client/src/index.css">
+@import "tailwindcss";
+
+
+body {
+    background-color: rgb(241, 245, 241);
+}
+</file>
+
+<file path="api/controllers/auth.controller.js">
+import User from '../models/user.model.js';
+import bcryptjs from 'bcryptjs';
+import { errorHandler } from '../utils/error.js';
+import jwt from 'jsonwebtoken';
+
+export const signup = async (req,res, next)=>{
+    const { username, email, password} = req.body;
+    
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+    const newUser = new User({username, email, password: hashedPassword});
+
+    try {
+
+        await newUser.save();
+        res.status(201).json("User created successfully!"); 
+    }catch (error){
+        next(error);  
+
+    }
+};
+
+export const signin = async (req,res,next)=>{
+    const {email,password} = req.body;
+    try {
+        const validUser = await User.findOne({email});
+        if(!validUser){
+            return next(errorHandler(404, "User not found!"));
+        }
+            const validPassword = bcryptjs.compareSync(password, validUser.password);
+            if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
+                const token = jwt.sign({id:validUser._id}, process.env.JWT_SECRET);
+                const {password: pass, ...rest} = validUser._doc;
+                res
+                .cookie('access_token', token, { httpOnly: true })
+                .status(200)
+                .json(rest); 
+        
+    } catch (error) {
+        next(error);
+        
+    }
+
+};
+
+export const google = async (req, res, next) =>{
+    try {
+        const user = await User.findOne({email: req.body.email});
+        if (user) {
+            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+            const {password, ...rest} = user._doc;
+            res
+            .cookie('access_token', token, { httpOnly: true })
+            .status(200)
+            .json(rest);
+        }else{
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+            const newUser = new User({
+                username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
+                email: req.body.email,
+                password: hashedPassword,
+                avatar: req.body.photo,
+        });
+
+        await newUser.save();
+        
+        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
+        const {password, ...rest} = newUser._doc;
+        res
+        .cookie('access_token', token, { httpOnly: true })
+        .status(200)
+        .json(rest);
+        }
+    } catch (error) {
+        next(error);
+        
+    }
+}
+
+export const signOut = async (req, res, next) => {
+    try{
+    res.clearCookie('access_token');
+    res.status(200).json({message: "User signed out successfully!"});
+    } catch (error) {
+    next(error);
+}
+
+};
+</file>
+
+<file path="client/src/components/Header.jsx">
+import { FaSearch } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [window.location.search]);
+
+  return (
+    <header className='bg-slate-200 shadow-md'>
+      <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
+        <Link to='/'>
+          <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
+            <span className='text-slate-500'>Abinas</span>
+            <span className='text-slate-700'>Estate</span>
+          </h1>
+        </Link>
+        <form
+          onSubmit={handleSubmit}
+          className='bg-slate-100 p-3 rounded-lg flex items-center'
+        >
+          <input
+            type='text'
+            placeholder='Search...'
+            className='bg-transparent focus:outline-none w-24 sm:w-64'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button>
+            <FaSearch className='text-slate-600' />
+          </button>
+        </form>
+        <ul className='flex gap-4'>
+          <Link to='/'>
+            <li className='hidden sm:inline text-slate-700 hover:underline'>Home</li>
+          </Link>
+          <Link to='/about'>
+            <li className='hidden sm:inline text-slate-700 hover:underline'>About</li>
+          </Link>
+          <Link to='/profile'>
+            {currentUser ? (
+              <img
+                className='rounded-full h-7 w-7 object-cover'
+                src={currentUser.avatar}
+                alt='profile'
+              />
+            ) : (
+              <li className='text-slate-700 hover:underline'>Sign In</li>
+            )}
+          </Link>
+        </ul>
+      </div>
+    </header>
+  );
+}
+</file>
+
+<file path="client/package.json">
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
+    "@supabase/supabase-js": "^2.110.2",
+    "@tailwindcss/vite": "^4.3.2",
+    "firebase": "^12.16.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "react-redux": "^9.3.0",
+    "react-router-dom": "^7.18.1",
+    "redux-persist": "^6.0.0",
+    "swiper": "^14.0.5",
+    "tailwindcss": "^4.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@eslint/js": "^10.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "vite": "^8.1.1"
+  }
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "mern-estate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch api/index.js",
+    "start": "node api/index.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abinashregmi/mern-estate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abinashregmi/mern-estate/issues"
+  },
+  "homepage": "https://github.com/abinashregmi/mern-estate#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.4",
+    "multer": "^2.2.0",
+    "multer-storage-cloudinary": "^2.2.1",
+    "react-redux": "^9.3.0"
+  }
+}
+</file>
+
+<file path="client/src/App.jsx">
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Profile from "./pages/Profile";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Header from "./components/Header";
+import PrivateRoute from "./components/PrivateRoute";
+import CreateListing from "./pages/CreateListing";
+import Listing from "./pages/ListingItem";       // renamed import
+import Search from "./pages/Search";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/listing/:listingId" element={<Listing />} />   {/* added */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/create-listing" element={<CreateListing />} />
+          <Route path="/update-listing/:listingId" element={<CreateListing />} />
+          <Route path="/search" element={<Search />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+</file>
+
+<file path="client/src/pages/Profile.jsx">
+import { useSelector } from 'react-redux';
+import { useRef, useState, useEffect } from 'react';
+import { supabase } from '../supabase';
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserStart,
+} from '../redux/user/userSlice.js';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+export default function Profile() {
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const fileRef = useRef(null);
+  const [file, setFile] = useState(undefined);
+  const [formData, setFormData] = useState({});
+  const [fileUploadError, setFileUploadError] = useState(false);
+  const [filePerc, setFilePerc] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [userListings, setUserListings] = useState([]);
+  const dispatch = useDispatch();
+
+  const handleFileUpload = async (file) => {
+    try {
+      setFileUploadError(false);
+      setFilePerc(true);
+
+      if (file.size > 2 * 1024 * 1024) {
+        setFileUploadError(true);
+        setFilePerc(false);
+        return;
+      }
+
+      const fileName = Date.now() + file.name;
+      const { error } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file);
+
+      if (error) {
+        setFileUploadError(true);
+        setFilePerc(false);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      setFormData({ ...formData, avatar: urlData.publicUrl });
+      setFilePerc(false);
+    } catch (error) {
+      setFileUploadError(true);
+      setFilePerc(false);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleShowListings = async () => {
+    try {
+      setShowListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+    }
+  };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+
+    }catch (error) {
+      console.log(error.message);
+    }
+
+  };
+
+  
+
+  return (
+    <div className='p-3 max-w-lg mx-auto'>
+      <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <input
+          onChange={(e) => setFile(e.target.files[0])}
+          type='file'
+          ref={fileRef}
+          hidden
+          accept='image/*'
+        />
+        <img
+          onClick={() => fileRef.current.click()}
+          src={formData.avatar || currentUser?.avatar}
+          alt='Profile'
+          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+        />
+        <p className='text-sm self-center'>
+          {fileUploadError ? (
+            <span className='text-red-700'>
+              Error uploading image (file must be less than 2MB)
+            </span>
+          ) : filePerc ? (
+            <span className='text-slate-700'>Uploading...</span>
+          ) : formData.avatar ? (
+            <span className='text-green-700'>Image uploaded successfully!</span>
+          ) : (
+            ''
+          )}
+        </p>
+        <input
+          onChange={handleChange}
+          type='text'
+          placeholder='username'
+          defaultValue={currentUser?.username}
+          id='username'
+          className='border p-3 rounded-lg'
+        />
+        <input
+          onChange={handleChange}
+          type='email'
+          placeholder='email'
+          defaultValue={currentUser?.email}
+          id='email'
+          className='border p-3 rounded-lg'
+        />
+        <input
+          onChange={handleChange}
+          type='password'
+          placeholder='password'
+          id='password'
+          className='border p-3 rounded-lg'
+        />
+
+        <button
+          disabled={loading}
+          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+        >
+          {loading ? 'Updating...' : 'Update'}
+        </button>
+        <Link
+          className='bg-green-700 text-white rounded-lg p-3 uppercase text-center hover:opacity-95 disabled:opacity-80'
+          to='/create-listing'
+        >
+          Create Listing
+        </Link>
+      </form>
+      <div className='flex justify-between mt-5'>
+        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>
+          Delete Account
+        </span>
+        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
+          Sign Out
+        </span>
+      </div>
+      <p className='text-green-700 mt-5'>
+        {updateSuccess ? 'Profile updated successfully!' : ''}
+      </p>
+      <button onClick={handleShowListings} className='text-green-700 w-full'>
+        Show Listings
+      </button>
+      <p className='text-red-600 mt-5'>
+        {showListingsError ? 'Error fetching listings' : ''}
+      </p>
+
+      {userListings && userListings.length > 0 && (
+        <div className='flex flex-col gap-4'>
+          <h1 className='text-center mt-7 text-2xl font-semibold'>
+            Your Listings
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className='border rounded-lg p-3 flex justify-between items-center gap-4'
+            >
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt='listing cover'
+                  className='h-16 w-16 object-cover rounded-lg'
+                />
+              </Link>
+              <Link
+                className='text-slate-700 font-semibold flex-1 hover:underline truncate'
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+              <div className='flex flex-col items-center'>
+                <button onClick={() => handleListingDelete(listing._id)} className='text-red-700 uppercase'>
+                  Delete
+                </button>
+                <Link
+                  className='text-green-700 uppercase'
+                  to={`/update-listing/${listing._id}`}
+                >
+                  Edit
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+</file>
+
+<file path="api/index.js">
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import userRouter from "./routes/user.route.js";
+import authRouter from "./routes/auth.route.js";
+import listingRouter from "./routes/listing.route.js";
+import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+
+dotenv.config();
+
+const app = express();
+
+// ES Module __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log("Connected to MongoDB!");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// API Routes
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
+
+// Serve React frontend
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+// React Router fallback
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
+
+// Start Server
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}!`);
+});
+</file>
+
+</files>

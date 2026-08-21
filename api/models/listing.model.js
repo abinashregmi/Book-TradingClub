@@ -1,67 +1,78 @@
 import mongoose from "mongoose";
-import { use } from "react";
 
 const listingSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true,
     },
-    description:{
+    description: {
         type: String,
         required: true,
     },
-    address:{
+    address: {
         type: String,
         required: true,    
     },
-    regularPrice:{
+    regularPrice: {
         type: Number,
         required: true,
     },
-    discountPrice:{
+    discountPrice: {
         type: Number,
         required: true,
     },
-    bathrooms:{
+    bathrooms: {
         type: Number,
         required: true,
     },
-    bedrooms:{
+    bedrooms: {
         type: Number,
         required: true,
     },
-    furnished:{
+    furnished: {
         type: Boolean,
         required: true,
     },
-    parking:{
+    parking: {
         type: Boolean,
         required: true,
     },
-    type:{
+    type: {
         type: String,
         required: true,
     },
-    offer:{
+    offer: {
         type: Boolean,
         required: true,
     },
-    imageUrls:{
+    imageUrls: {
         type: Array,
         required: true,
     },
-    userRef:{
+    userRef: {
         type: String,
         required: true,
     }, 
     bookingStatus: {
-        type:String,
+        type: String,
         enum: ['available', 'booked', 'sold'],
         default: 'available',
+    },
+    governmentRegistrationNum: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    isRegistryVerified: {
+        type: Boolean,
+        default: false,
+    },
+    municipalTaxAmount: {
+        type: Number,
+        default: 0,
     }
-},{timestamps: true});
+}, { timestamps: true });
 
 const Listing = mongoose.model("Listing", listingSchema);
 
 export default Listing;
-
