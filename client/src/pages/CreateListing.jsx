@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../supabase';
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -18,7 +17,7 @@ export default function CreateListing() {
     name: '',
     description: '',
     address: '',
-    type: '',
+    type: 'sale',
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 1000,
@@ -26,6 +25,7 @@ export default function CreateListing() {
     parking: false,
     furnished: false,
     offer: false,
+    governmentRegistrationNum: '', // Nepali Land Registry Number
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -52,7 +52,7 @@ export default function CreateListing() {
           name: data.name || '',
           description: data.description || '',
           address: data.address || '',
-          type: data.type || '',
+          type: data.type || 'sale',
           bedrooms: data.bedrooms ?? 1,
           bathrooms: data.bathrooms ?? 1,
           regularPrice: data.regularPrice ?? 1000,
@@ -60,6 +60,7 @@ export default function CreateListing() {
           parking: Boolean(data.parking),
           furnished: Boolean(data.furnished),
           offer: Boolean(data.offer),
+          governmentRegistrationNum: data.governmentRegistrationNum || '',
         });
         setError(false);
       } catch (error) {
@@ -72,6 +73,28 @@ export default function CreateListing() {
     fetchListing();
   }, [isEditMode, params.listingId]);
 
+  // Cloudinary image upload handler using Vite env variables
+  const storeImageCloudinary = async (file) => {
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'unsigned_preset';
+
+    const uploadData = new FormData();
+    uploadData.append('file', file);
+    uploadData.append('upload_preset', uploadPreset);
+    uploadData.append('folder', 'samples/ecommerce');
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+      method: 'POST',
+      body: uploadData,
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.secure_url) {
+      throw new Error(data.error?.message || 'Cloudinary upload failed');
+    }
+    return data.secure_url;
+  };
+
   const handleImageSubmit = (e) => {
     e.preventDefault();
 
@@ -81,7 +104,7 @@ export default function CreateListing() {
 
       const promises = [];
       for (let i = 0; i < files.length; i++) {
-        promises.push(storeImage(files[i]));
+        promises.push(storeImageCloudinary(files[i]));
       }
 
       Promise.all(promises)
@@ -94,31 +117,13 @@ export default function CreateListing() {
           setUploading(false);
         })
         .catch(() => {
-          setImageUploadError('Image upload failed (2mb max per image)');
+          setImageUploadError('Image upload failed (Cloudinary configuration error or max size exceeded)');
           setUploading(false);
         });
     } else {
       setImageUploadError('You can only upload up to 6 images per listing');
       setUploading(false);
     }
-  };
-
-  const storeImage = async (file) => {
-    const fileName = `${Date.now()}-${file.name}`;
-
-    const { error } = await supabase.storage
-      .from('listing-images')
-      .upload(fileName, file);
-
-    if (error) {
-      throw error;
-    }
-
-    const { data: urlData } = supabase.storage
-      .from('listing-images')
-      .getPublicUrl(fileName);
-
-    return urlData.publicUrl;
   };
 
   const handleRemoveImage = (index) => {
@@ -134,6 +139,7 @@ export default function CreateListing() {
         ...formData,
         type: e.target.id,
       });
+      return;
     }
 
     if (
@@ -145,6 +151,7 @@ export default function CreateListing() {
         ...formData,
         [e.target.id]: e.target.checked,
       });
+      return;
     }
 
     if (
@@ -154,7 +161,7 @@ export default function CreateListing() {
     ) {
       setFormData({
         ...formData,
-        [e.target.id]: e.target.value,
+        [e.target.id]: e.target.type === 'number' ? Number(e.target.value) : e.target.value,
       });
     }
   };
@@ -164,6 +171,9 @@ export default function CreateListing() {
     try {
       if (formData.imageUrls.length < 1) {
         return setError('You must upload at least one image');
+      }
+      if (!formData.governmentRegistrationNum.trim()) {
+        return setError('Government Registration Number is required for CivicEstate listing');
       }
       if (+formData.regularPrice < +formData.discountPrice) {
         return setError('Discounted price must be lower than regular price');
@@ -180,14 +190,15 @@ export default function CreateListing() {
           ? `/api/listing/update/${params.listingId}`
           : '/api/listing/create',
         {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-        }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            governmentRegistrationNum: formData.governmentRegistrationNum.trim().toUpperCase(),
+            userRef: currentUser._id,
+          }),
         }
       );
 
@@ -214,24 +225,41 @@ export default function CreateListing() {
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-6'>
         {/* LEFT COLUMN */}
         <div className='flex flex-col gap-4 flex-1'>
+          {/* REQUIRED GOVERNMENT REGISTRATION NUMBER FIELD */}
+          <div className='flex flex-col gap-1'>
+            <label className='text-xs font-semibold uppercase text-slate-700'>
+              Government Registration Number (Lalpurja Reference) *
+            </label>
+            <input
+              type='text'
+              placeholder='e.g., GOV-RE-XXXXX (e.g., GOV-RE-2081-09412)'
+              className={inputStyle}
+              id='governmentRegistrationNum'
+              required
+              onChange={handleChange}
+              value={formData.governmentRegistrationNum}
+            />
+            <span className='text-xs text-gray-500'>
+              Nepali Land Revenue registry reference required for Civil Audit verification.
+            </span>
+          </div>
+
           <input
             type='text'
             placeholder='Name'
             className={inputStyle}
             id='name'
             maxLength='62'
-            minLength='10'
+            minLength='5'
             required
             onChange={handleChange}
             value={formData.name}
           />
-          <input
-            type='text'
+          <textarea
             placeholder='Description'
             className={inputStyle}
             id='description'
-            maxLength='62'
-            minLength='10'
+            rows='3'
             required
             onChange={handleChange}
             value={formData.description}
@@ -332,16 +360,16 @@ export default function CreateListing() {
               <input
                 type='number'
                 id='regularPrice'
-                min='1'
-                max='10000000'
+                min='50'
+                max='1000000000'
                 required
-                className='p-3 border border-gray-300 rounded-lg bg-white w-24'
+                className='p-3 border border-gray-300 rounded-lg bg-white w-28'
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
-              <div className='flex flex-col items-center'>
-                <p>Regular price</p>
-                <span className='text-xs'>(Rs. / month)</span>
+              <div className='flex flex-col items-start'>
+                <p className='text-sm'>Regular price</p>
+                <span className='text-xs text-gray-500'>(Rs. {formData.type === 'rent' ? '/ month' : ''})</span>
               </div>
             </div>
             {formData.offer && (
@@ -350,25 +378,25 @@ export default function CreateListing() {
                   type='number'
                   id='discountPrice'
                   min='0'
-                  max='10000000'
+                  max='1000000000'
                   required
-                  className='p-3 border border-gray-300 rounded-lg bg-white w-24'
+                  className='p-3 border border-gray-300 rounded-lg bg-white w-28'
                   onChange={handleChange}
-                  value={formData.discounPrice}
+                  value={formData.discountPrice}
                 />
-                <div className='flex flex-col items-center'>
-                  <p>Discount price</p>
-                  <span className='text-xs'>(Rs. / month)</span>
+                <div className='flex flex-col items-start'>
+                  <p className='text-sm'>Discount price</p>
+                  <span className='text-xs text-gray-500'>(Rs. {formData.type === 'rent' ? '/ month' : ''})</span>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* RIGHT COLUMN — IMAGES */}
+        {/* RIGHT COLUMN — CLOUDINARY IMAGES */}
         <div className='flex flex-col flex-1 gap-4 self-start'>
           <p className='font-semibold'>
-            Images:
+            Images (Cloudinary):
             <span className='font-normal text-gray-600 ml-2'>
               The first image will be the cover (max 6)
             </span>
@@ -404,7 +432,7 @@ export default function CreateListing() {
             formData.imageUrls.map((url, index) => (
               <div
                 key={url}
-                className='flex justify-between p-3 border items-center'
+                className='flex justify-between p-3 border items-center bg-white rounded-lg'
               >
                 <img
                   src={url}
@@ -427,7 +455,13 @@ export default function CreateListing() {
             className='p-3 bg-slate-700 text-white rounded-lg uppercase
             hover:opacity-95 disabled:opacity-80'
           >
-            {loading ? (isEditMode ? 'Updating...' : 'Creating...') : isEditMode ? 'Update Listing' : 'Create Listing'}
+            {loading
+              ? isEditMode
+                ? 'Updating...'
+                : 'Creating...'
+              : isEditMode
+              ? 'Update Listing'
+              : 'Create Listing'}
           </button>
 
           {error && <p className='text-red-700 text-sm'>{error}</p>}

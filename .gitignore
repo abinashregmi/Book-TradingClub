@@ -20,3 +20,6 @@ dist-ssr
 *.njsproj
 *.sw?
 .env
+api/.env
+client/.env
+

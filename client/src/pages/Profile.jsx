@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
-import { supabase } from '../supabase';
 import {
   updateUserStart,
   updateUserSuccess,
@@ -25,38 +24,54 @@ export default function Profile() {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
-  const handleFileUpload = async (file) => {
+  // CLOUDINARY AVATAR UPLOAD HANDLER
+  const handleFileUpload = async (fileToUpload) => {
     try {
       setFileUploadError(false);
       setFilePerc(true);
 
-      if (file.size > 2 * 1024 * 1024) {
-        setFileUploadError(true);
+      // Validation: 2MB limit
+      if (fileToUpload.size > 2 * 1024 * 1024) {
+        setFileUploadError('File size must be less than 2MB');
         setFilePerc(false);
         return;
       }
 
-      const fileName = Date.now() + file.name;
-      const { error } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file);
+      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+      const uploadPreset =
+        import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'unsigned_preset';
 
-      if (error) {
-        setFileUploadError(true);
-        setFilePerc(false);
-        return;
+      const data = new FormData();
+      data.append('file', fileToUpload);
+      data.append('upload_preset', uploadPreset);
+      data.append('folder', 'samples/ecommerce');
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: 'POST',
+          body: data,
+        }
+      );
+
+      const uploadedImageData = await res.json();
+
+      if (!res.ok || !uploadedImageData.secure_url) {
+        throw new Error(
+          uploadedImageData.error?.message || 'Cloudinary upload failed'
+        );
       }
 
-      const { data: urlData } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      setFormData({ ...formData, avatar: urlData.publicUrl });
+      // Store resulting cloud asset web URL into formData state
+      setFormData((prev) => ({
+        ...prev,
+        avatar: uploadedImageData.secure_url,
+      }));
       setFilePerc(false);
-    } catch (error) {
-      setFileUploadError(true);
+    } catch (err) {
+      console.error('Cloudinary Avatar Upload Error:', err);
+      setFileUploadError('Error uploading image to Cloudinary');
       setFilePerc(false);
-      console.error(error);
     }
   };
 
@@ -148,15 +163,13 @@ export default function Profile() {
         console.log(data.message);
         return;
       }
-      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
-
-    }catch (error) {
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
       console.log(error.message);
     }
-
   };
-
-  
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -173,15 +186,13 @@ export default function Profile() {
           onClick={() => fileRef.current.click()}
           src={formData.avatar || currentUser?.avatar}
           alt='Profile'
-          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2 border border-slate-300'
         />
         <p className='text-sm self-center'>
           {fileUploadError ? (
-            <span className='text-red-700'>
-              Error uploading image (file must be less than 2MB)
-            </span>
+            <span className='text-red-700'>{fileUploadError}</span>
           ) : filePerc ? (
-            <span className='text-slate-700'>Uploading...</span>
+            <span className='text-slate-700'>Uploading to Cloudinary...</span>
           ) : formData.avatar ? (
             <span className='text-green-700'>Image uploaded successfully!</span>
           ) : (
@@ -194,7 +205,7 @@ export default function Profile() {
           placeholder='username'
           defaultValue={currentUser?.username}
           id='username'
-          className='border p-3 rounded-lg'
+          className='border p-3 rounded-lg bg-white'
         />
         <input
           onChange={handleChange}
@@ -202,18 +213,18 @@ export default function Profile() {
           placeholder='email'
           defaultValue={currentUser?.email}
           id='email'
-          className='border p-3 rounded-lg'
+          className='border p-3 rounded-lg bg-white'
         />
         <input
           onChange={handleChange}
           type='password'
           placeholder='password'
           id='password'
-          className='border p-3 rounded-lg'
+          className='border p-3 rounded-lg bg-white'
         />
 
         <button
-          disabled={loading}
+          disabled={loading || filePerc}
           className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
         >
           {loading ? 'Updating...' : 'Update'}
@@ -226,7 +237,10 @@ export default function Profile() {
         </Link>
       </form>
       <div className='flex justify-between mt-5'>
-        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>
+        <span
+          onClick={handleDeleteUser}
+          className='text-red-700 cursor-pointer'
+        >
           Delete Account
         </span>
         <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
@@ -251,7 +265,7 @@ export default function Profile() {
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className='border rounded-lg p-3 flex justify-between items-center gap-4'
+              className='border rounded-lg p-3 flex justify-between items-center gap-4 bg-white'
             >
               <Link to={`/listing/${listing._id}`}>
                 <img
@@ -267,7 +281,10 @@ export default function Profile() {
                 <p>{listing.name}</p>
               </Link>
               <div className='flex flex-col items-center'>
-                <button onClick={() => handleListingDelete(listing._id)} className='text-red-700 uppercase'>
+                <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className='text-red-700 uppercase'
+                >
                   Delete
                 </button>
                 <Link

@@ -51,6 +51,7 @@ api/
     user.model.js
   routes/
     auth.route.js
+    governance.route.js
     listing.route.js
     user.route.js
   utils/
@@ -1338,6 +1339,71 @@ const Transaction = mongoose.model('Transaction', transactionSchema);
 export default Transaction;
 </file>
 
+<file path="api/routes/governance.route.js">
+import express from 'express';
+import { verifyToken } from '../utils/verifyUser.js';
+import Listing from '../models/listing.model.js';
+import User from '../models/user.model.js';
+import { errorHandler } from '../utils/error.js';
+
+const router = express.Router();
+
+// 1. POST /verify-asset/:id -> Verify the property registry
+router.post('/verify-asset/:id', verifyToken, async (req, res, next) => {
+  try {
+    // Fetch user from DB to check role (since JWT only contains ID)
+    const user = await User.findById(req.user.id);
+
+    if (!user || user.role !== 'Government_Officer') {
+      return next(errorHandler(403, 'Forbidden: Only Government Officers can verify assets.'));
+    }
+
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+
+    listing.isRegistryVerified = true;
+    await listing.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Property registry has been verified successfully.',
+      listing,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 2. POST /calculate-tax/:id -> Calculate and save municipal tax
+router.post('/calculate-tax/:id', verifyToken, async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return next(errorHandler(404, 'Listing not found!'));
+    }
+
+    // Mathematical algorithm: (regularPrice * 0.5%) + 5000 flat fee
+    const calculatedTax = (listing.regularPrice * 0.005) + 5000;
+
+    listing.municipalTaxAmount = calculatedTax;
+    await listing.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Municipal tax calculated and updated.',
+      taxAmount: calculatedTax,
+      listing,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default router;
+</file>
+
 <file path="api/utils/cloudinary.js">
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
@@ -1501,75 +1567,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
   },
   "include": ["src"]
 }
-</file>
-
-<file path="api/models/listing.model.js">
-import mongoose from "mongoose";
-import { use } from "react";
-
-const listingSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        required: true,
-    },
-    description:{
-        type: String,
-        required: true,
-    },
-    address:{
-        type: String,
-        required: true,    
-    },
-    regularPrice:{
-        type: Number,
-        required: true,
-    },
-    discountPrice:{
-        type: Number,
-        required: true,
-    },
-    bathrooms:{
-        type: Number,
-        required: true,
-    },
-    bedrooms:{
-        type: Number,
-        required: true,
-    },
-    furnished:{
-        type: Boolean,
-        required: true,
-    },
-    parking:{
-        type: Boolean,
-        required: true,
-    },
-    type:{
-        type: String,
-        required: true,
-    },
-    offer:{
-        type: Boolean,
-        required: true,
-    },
-    imageUrls:{
-        type: Array,
-        required: true,
-    },
-    userRef:{
-        type: String,
-        required: true,
-    }, 
-    bookingStatus: {
-        type:String,
-        enum: ['available', 'booked', 'sold'],
-        default: 'available',
-    }
-},{timestamps: true});
-
-const Listing = mongoose.model("Listing", listingSchema);
-
-export default Listing;
 </file>
 
 <file path="client/src/components/OAuth.jsx">
@@ -1889,6 +1886,87 @@ Note: This will impact Vite dev & build performances.
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+</file>
+
+<file path="api/models/listing.model.js">
+import mongoose from "mongoose";
+
+const listingSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,    
+    },
+    regularPrice: {
+        type: Number,
+        required: true,
+    },
+    discountPrice: {
+        type: Number,
+        required: true,
+    },
+    bathrooms: {
+        type: Number,
+        required: true,
+    },
+    bedrooms: {
+        type: Number,
+        required: true,
+    },
+    furnished: {
+        type: Boolean,
+        required: true,
+    },
+    parking: {
+        type: Boolean,
+        required: true,
+    },
+    type: {
+        type: String,
+        required: true,
+    },
+    offer: {
+        type: Boolean,
+        required: true,
+    },
+    imageUrls: {
+        type: Array,
+        required: true,
+    },
+    userRef: {
+        type: String,
+        required: true,
+    }, 
+    bookingStatus: {
+        type: String,
+        enum: ['available', 'booked', 'sold'],
+        default: 'available',
+    },
+    governmentRegistrationNum: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    isRegistryVerified: {
+        type: Boolean,
+        default: false,
+    },
+    municipalTaxAmount: {
+        type: Number,
+        default: 0,
+    }
+}, { timestamps: true });
+
+const Listing = mongoose.model("Listing", listingSchema);
+
+export default Listing;
 </file>
 
 <file path="api/utils/error.js">
@@ -2848,38 +2926,6 @@ export const getListings = async (req, res, next) => {
 };
 </file>
 
-<file path="api/models/user.model.js">
-import mongoose from "mongoose";
-
-const userSchema = new mongoose.Schema({
-    username: {
-        type:String,
-        required: true,
-        unique: true,
-
-    },
-    email: {
-        type:String,
-        required: true,
-        unique: true,
-
-    },
-    password: {
-        type:String,
-        required: true,
-
-    },
-    avatar: {
-        type:String,
-        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-}, {timestamps: true});
-
-const User = mongoose.model('User', userSchema);
-
-export default User;
-</file>
-
 <file path="client/src/pages/SignIn.jsx">
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -2988,6 +3034,40 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+</file>
+
+<file path="api/models/user.model.js">
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    avatar: {
+        type: String,
+        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    },
+    role: {
+        type: String,
+        enum: ['Citizen', 'Agent', 'Government_Officer'],
+        default: 'Citizen',
+    },
+}, { timestamps: true });
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
 </file>
 
 <file path="api/routes/auth.route.js">
@@ -4027,6 +4107,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import listingRouter from "./routes/listing.route.js";
+import governanceRouter from "./routes/governance.route.js"; // New Import
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -4057,6 +4138,7 @@ app.use(cookieParser());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
+app.use("/api/governance", governanceRouter); // New Route Mounted
 
 // Serve React frontend
 app.use(express.static(path.join(__dirname, "../client/dist")));
