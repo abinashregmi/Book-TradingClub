@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/api/:match*",
-      "destination": "https://civicestate-api.onrender.com/api/:match*"
+      "source": "/api/:path*",
+      "destination": "https://civicestate-api.onrender.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
