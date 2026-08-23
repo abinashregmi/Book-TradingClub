@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://civicestate-api.onrender.com/api/$1"
+    }
+  ]
+}
