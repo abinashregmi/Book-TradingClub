@@ -1,26 +1,30 @@
 import express from 'express';
-import multer from 'multer';
-import { storage } from '../utils/cloudinary.js'; // Import your new Cloudinary config
 import {
   createListing,
   deleteListing,
   updateListing,
   getListing,
   getListings,
+  verifyListing,
+  calculateTax,
 } from '../controllers/listing.controller.js';
-import { verifyToken } from '../utils/verifyUser.js';
-
-// Initialize multer with Cloudinary storage settings
-// Change '6' to the maximum number of images allowed per listing
-const upload = multer({ storage }).array('images', 6); 
+import { verifyUser, verifyToken, authorizeRoles } from '../utils/verifyUser.js';
 
 const router = express.Router();
 
-// Middleware execution order: 1st Verify User -> 2nd Upload Images -> 3rd Save to Database
-router.post('/create', verifyToken, upload, createListing);
-router.delete('/delete/:id', verifyToken, deleteListing);
-router.post('/update/:id', verifyToken, upload, updateListing);
-router.get('/get/:id', getListing);
+// 1. Explicit POST route for creating a property listing
+router.post('/create', verifyUser || verifyToken, createListing);
+
+// 2. Listing mutation endpoints
+router.post('/update/:id', verifyUser || verifyToken, updateListing);
+router.delete('/delete/:id', verifyUser || verifyToken, deleteListing);
+
+// 3. Public search and retrieval endpoints
 router.get('/get', getListings);
+router.get('/get/:id', getListing);
+
+// 4. Auditor governance and tax endpoints
+router.patch('/verify/:id', verifyUser || verifyToken, authorizeRoles('admin'), verifyListing);
+router.post('/calculate-tax/:id', verifyUser || verifyToken, authorizeRoles('admin'), calculateTax);
 
 export default router;

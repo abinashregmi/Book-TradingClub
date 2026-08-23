@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function CreateListing() {
+export default function UpdateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
-  const isEditMode = Boolean(params.listingId);
+  const listingId = params.listingId;
 
   const inputStyle =
     'border p-3 rounded-lg bg-white border-gray-300 w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500';
@@ -32,20 +32,30 @@ export default function CreateListing() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [fetchLoading, setFetchLoading] = useState(true);
 
+  // Fetch current listing details on component mount
   useEffect(() => {
     const fetchListing = async () => {
-      // Guard: Only fetch if in edit mode and a valid listingId param exists
-      if (!isEditMode || !params.listingId) return;
-
       try {
-        setLoading(true);
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        setFetchLoading(true);
+        const res = await fetch(`/api/listing/get/${listingId}`);
         const data = await res.json();
 
         if (data.success === false) {
-          setError(data.message || 'Failed to load listing');
-          setLoading(false);
+          setError(data.message || 'Failed to retrieve listing details');
+          setFetchLoading(false);
+          return;
+        }
+
+        // Verify that the current user owns this listing or is an admin
+        if (
+          data.userRef !== currentUser?._id &&
+          currentUser?.role !== 'admin' &&
+          currentUser?.role !== 'Government_Officer'
+        ) {
+          setError('Unauthorized: You are not authorized to update this listing.');
+          setFetchLoading(false);
           return;
         }
 
@@ -66,15 +76,18 @@ export default function CreateListing() {
         });
         setError(false);
       } catch (err) {
-        setError(err.message || 'Error retrieving listing record');
+        setError(err.message || 'Error communicating with server');
       } finally {
-        setLoading(false);
+        setFetchLoading(false);
       }
     };
 
-    fetchListing();
-  }, [isEditMode, params.listingId]);
+    if (listingId) {
+      fetchListing();
+    }
+  }, [listingId, currentUser]);
 
+  // Cloudinary image upload utility
   const storeImageCloudinary = async (file) => {
     const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'faylt7ob';
     const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'ml_default';
@@ -125,7 +138,7 @@ export default function CreateListing() {
           setFiles([]);
         })
         .catch((err) => {
-          setImageUploadError(err.message || 'Image upload failed');
+          setImageUploadError(err.message || 'Image upload failed.');
           setUploading(false);
         });
     } else {
@@ -174,7 +187,6 @@ export default function CreateListing() {
     }
   };
 
-  // EXPLICIT POST FORM SUBMISSION HANDLER
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -182,21 +194,16 @@ export default function CreateListing() {
         return setError('You must upload at least one image');
       }
       if (!formData.governmentRegistrationNum.trim()) {
-        return setError('Government Registration Number is required for CivicEstate listing');
+        return setError('Government Registration Number (Lalpurja Reference) is required');
       }
-      if (formData.offer && Number(formData.regularPrice) < Number(formData.discountPrice)) {
+      if (formData.offer && +formData.regularPrice < +formData.discountPrice) {
         return setError('Discounted price must be lower than regular price');
       }
 
       setLoading(true);
       setError(false);
 
-      const endpoint = isEditMode
-        ? `/api/listing/update/${params.listingId}`
-        : '/api/listing/create';
-
-      // Always execute POST request with explicit headers and body payload
-      const res = await fetch(endpoint, {
+      const res = await fetch(`/api/listing/update/${listingId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -204,8 +211,6 @@ export default function CreateListing() {
         body: JSON.stringify({
           ...formData,
           governmentRegistrationNum: formData.governmentRegistrationNum.trim().toUpperCase(),
-          lalpurjaReference: formData.governmentRegistrationNum.trim().toUpperCase(),
-          userRef: currentUser?._id,
         }),
       });
 
@@ -213,28 +218,35 @@ export default function CreateListing() {
       setLoading(false);
 
       if (data.success === false) {
-        setError(data.message || 'Failed to create listing');
+        setError(data.message);
         return;
       }
 
-      const targetId = data._id || data.listing?._id || params.listingId;
-      navigate(`/listing/${targetId}`);
+      navigate(`/listing/${listingId}`);
     } catch (err) {
-      setError(err.message || 'Network error creating listing');
+      setError(err.message);
       setLoading(false);
     }
   };
 
+  if (fetchLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <p className="text-xl font-semibold text-slate-700">Loading listing details...</p>
+      </div>
+    );
+  }
+
   return (
     <main className="p-3 max-w-4xl mx-auto min-h-[80vh]">
       <h1 className="text-3xl font-bold text-center my-7 text-slate-800">
-        {isEditMode ? 'Update Property Listing' : 'Create a Property Listing'}
+        Update Property Listing
       </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-6">
-        {/* LEFT COLUMN: PROPERTY DETAILS */}
+        {/* LEFT COLUMN: LISTING DETAILS */}
         <div className="flex flex-col gap-4 flex-1">
-          {/* Government Registration Number */}
+          {/* Government Registration Number Field */}
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold uppercase text-slate-700">
               Government Registration Number (Lalpurja Reference) *
@@ -337,7 +349,7 @@ export default function CreateListing() {
             </div>
           </div>
 
-          {/* NUMERIC FIELDS */}
+          {/* NUMERIC METRICS */}
           <div className="flex flex-wrap gap-6">
             <div className="flex items-center gap-2">
               <input
@@ -406,7 +418,7 @@ export default function CreateListing() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: IMAGES & SUBMIT ACTION */}
+        {/* RIGHT COLUMN: IMAGES & ACTION BUTTONS */}
         <div className="flex flex-col flex-1 gap-4 self-start">
           <p className="font-semibold text-slate-800">
             Images (Cloudinary):
@@ -464,13 +476,7 @@ export default function CreateListing() {
             disabled={loading || uploading}
             className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 font-bold transition mt-2 cursor-pointer"
           >
-            {loading
-              ? isEditMode
-                ? 'Updating Listing...'
-                : 'Creating Listing...'
-              : isEditMode
-              ? 'Update Listing'
-              : 'Create Listing'}
+            {loading ? 'Updating Listing...' : 'Update Listing'}
           </button>
 
           {error && <p className="text-red-700 text-sm font-semibold">{error}</p>}

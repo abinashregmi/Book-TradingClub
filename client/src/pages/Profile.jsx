@@ -1,281 +1,233 @@
-import { useSelector } from 'react-redux';
-import { useRef, useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-  deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
   signOutUserStart,
-} from '../redux/user/userSlice.js';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+  signOutUserSuccess,
+  signOutUserFailure,
+} from '../redux/user/userSlice';
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const fileRef = useRef(null);
-  const [file, setFile] = useState(undefined);
-  const [formData, setFormData] = useState({});
-  const [fileUploadError, setFileUploadError] = useState(false);
-  const [filePerc, setFilePerc] = useState(false);
-  const [updateSuccess, setUpdateSuccess] = useState(false);
-  const [showListingsError, setShowListingsError] = useState(false);
-  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleFileUpload = async (file) => {
-    try {
-      setFileUploadError(false);
-      setFilePerc(true);
+  const [formData, setFormData] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [signOutLoading, setSignOutLoading] = useState(false);
 
-      if (file.size > 2 * 1024 * 1024) {
-        setFileUploadError(true);
-        setFilePerc(false);
-        return;
-      }
-
-      const fileName = Date.now() + file.name;
-      const { error } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file);
-
-      if (error) {
-        setFileUploadError(true);
-        setFilePerc(false);
-        return;
-      }
-
-      const { data: urlData } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      setFormData({ ...formData, avatar: urlData.publicUrl });
-      setFilePerc(false);
-    } catch (error) {
-      setFileUploadError(true);
-      setFilePerc(false);
-      console.error(error);
+  // Normalize role string safely
+  const getNormalizedRole = (role) => {
+    if (!role) return 'citizen';
+    const r = String(role).trim().toLowerCase();
+    if (r === 'user' || r === 'citizen') return 'citizen';
+    if (r === 'agent') return 'agent';
+    if (r === 'admin' || r === 'government_officer' || r === 'government officer' || r === 'gov_auditor') {
+      return 'admin';
     }
+    return 'citizen';
   };
 
-  useEffect(() => {
-    if (file) {
-      handleFileUpload(file);
+  const userRole = getNormalizedRole(currentUser?.role);
+
+  // 1. ROBUST GLOBAL LOGOUT / SIGN OUT HANDLER
+  const handleSignOut = async () => {
+    try {
+      setSignOutLoading(true);
+      dispatch(signOutUserStart());
+
+      const res = await fetch('/api/auth/signout', {
+        method: 'GET',
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        setSignOutLoading(false);
+        return;
+      }
+
+      // Clear client state & local persisted caches
+      dispatch(signOutUserSuccess());
+      localStorage.removeItem('persist:root');
+      sessionStorage.clear();
+
+      setSignOutLoading(false);
+      navigate('/sign-in');
+    } catch (err) {
+      dispatch(signOutUserFailure(err.message));
+      setSignOutLoading(false);
     }
-  }, [file]);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(updateUserFailure(data.message));
-        return;
-      }
-      dispatch(updateUserSuccess(data));
-      setUpdateSuccess(true);
-    } catch (error) {
-      dispatch(updateUserFailure(error.message));
-    }
-  };
-
-  const handleDeleteUser = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      dispatch(signOutUserStart());
-      const res = await fetch('/api/auth/signout');
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
-  };
-
-  const handleShowListings = async () => {
-    try {
-      setShowListingsError(false);
-      const res = await fetch(`/api/user/listings/${currentUser._id}`);
-      const data = await res.json();
-      if (data.success === false) {
-        setShowListingsError(true);
-        return;
-      }
-      setUserListings(data);
-    } catch (error) {
-      setShowListingsError(true);
-    }
-  };
-
-  const handleListingDelete = async (listingId) => {
-    try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        console.log(data.message);
-        return;
-      }
-      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input
-          onChange={(e) => setFile(e.target.files[0])}
-          type='file'
-          ref={fileRef}
-          hidden
-          accept='image/*'
-        />
-        <img
-          onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser?.avatar}
-          alt='Profile'
-          referrerPolicy='no-referrer'
-          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
-        />
-        <p className='text-sm self-center'>
-          {fileUploadError ? (
-            <span className='text-red-700'>
-              Error uploading image (file must be less than 2MB)
-            </span>
-          ) : filePerc ? (
-            <span className='text-slate-700'>Uploading...</span>
-          ) : formData.avatar ? (
-            <span className='text-green-700'>Image uploaded successfully!</span>
-          ) : (
-            ''
-          )}
-        </p>
-        <input
-          onChange={handleChange}
-          type='text'
-          placeholder='username'
-          defaultValue={currentUser?.username}
-          id='username'
-          className='border p-3 rounded-lg'
-        />
-        <input
-          onChange={handleChange}
-          type='email'
-          placeholder='email'
-          defaultValue={currentUser?.email}
-          id='email'
-          className='border p-3 rounded-lg'
-        />
-        <input
-          onChange={handleChange}
-          type='password'
-          placeholder='password'
-          id='password'
-          className='border p-3 rounded-lg'
-        />
+    <div className="p-4 max-w-xl mx-auto min-h-[80vh]">
+      <h1 className="text-3xl font-bold text-center text-slate-800 my-6">
+        Account Clearance & Profile
+      </h1>
 
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Updating...' : 'Update'}
-        </button>
-        <Link
-          className='bg-green-700 text-white rounded-lg p-3 uppercase text-center hover:opacity-95 disabled:opacity-80'
-          to='/create-listing'
-        >
-          Create Listing
-        </Link>
-      </form>
-      <div className='flex justify-between mt-5'>
-        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>
-          Delete Account
-        </span>
-        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
-          Sign Out
-        </span>
+      {/* Role Badge Indicator */}
+      <div className="flex justify-center mb-6">
+        {userRole === 'admin' && (
+          <div className="flex items-center gap-1.5 bg-purple-100 text-purple-900 border border-purple-300 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
+            <span>Government Officer & Auditor (Admin)</span>
+          </div>
+        )}
+        {userRole === 'agent' && (
+          <div className="flex items-center gap-1.5 bg-blue-100 text-blue-900 border border-blue-300 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-blue-600" />
+            <span>Licensed Real Estate Agent</span>
+          </div>
+        )}
+        {userRole === 'citizen' && (
+          <div className="flex items-center gap-1.5 bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600" />
+            <span>Verified Citizen Account</span>
+          </div>
+        )}
       </div>
-      <p className='text-green-700 mt-5'>
-        {updateSuccess ? 'Profile updated successfully!' : ''}
-      </p>
-      <button onClick={handleShowListings} className='text-green-700 w-full'>
-        Show Listings
-      </button>
-      <p className='text-red-600 mt-5'>
-        {showListingsError ? 'Error fetching listings' : ''}
-      </p>
 
-      {userListings && userListings.length > 0 && (
-        <div className='flex flex-col gap-4'>
-          <h1 className='text-center mt-7 text-2xl font-semibold'>
-            Your Listings
-          </h1>
-          {userListings.map((listing) => (
-            <div
-              key={listing._id}
-              className='border rounded-lg p-3 flex justify-between items-center gap-4'
-            >
-              <Link to={`/listing/${listing._id}`}>
-                <img
-                  src={listing.imageUrls[0]}
-                  alt='listing cover'
-                  className='h-16 w-16 object-cover rounded-lg'
-                />
+      {/* Profile Details Card */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-6">
+        <form className="flex flex-col gap-4">
+          <img
+            src={
+              currentUser?.avatar ||
+              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            }
+            alt="profile"
+            className="rounded-full h-24 w-24 object-cover self-center border-2 border-slate-200 shadow-xs"
+          />
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-600 mb-1">Username</label>
+            <input
+              type="text"
+              defaultValue={currentUser?.username}
+              id="username"
+              onChange={handleChange}
+              className="border border-slate-300 p-2.5 rounded-lg w-full text-sm focus:outline-slate-800"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-600 mb-1">Email Address</label>
+            <input
+              type="email"
+              defaultValue={currentUser?.email}
+              id="email"
+              disabled
+              className="border border-slate-200 bg-slate-50 text-slate-500 p-2.5 rounded-lg w-full text-sm cursor-not-allowed"
+            />
+          </div>
+        </form>
+      </div>
+
+      {/* 2. ROLE-BASED DASHBOARDS & DIRECT FUNCTIONAL ROUTING */}
+      <div className="mb-6">
+        {/* CITIZEN SERVICES */}
+        {userRole === 'citizen' && (
+          <div className="bg-emerald-50/70 border border-emerald-200 p-5 rounded-2xl space-y-3">
+            <h3 className="font-bold text-emerald-950 text-sm flex items-center gap-2">
+              <span>🏠</span>
+              <span>Citizen Portals & Applications</span>
+            </h3>
+            <div className="grid grid-cols-1 gap-2.5">
+              <Link
+                to="/search"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white py-2.5 px-4 rounded-xl text-center text-sm font-semibold transition"
+              >
+                Browse Verified Properties
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* AGENT PORTAL */}
+        {userRole === 'agent' && (
+          <div className="bg-blue-50/70 border border-blue-200 p-5 rounded-2xl space-y-3">
+            <h3 className="font-bold text-blue-950 text-sm flex items-center gap-2">
+              <span>🏢</span>
+              <span>Agent Management Console</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <Link
+                to="/create-listing"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white py-2.5 px-4 rounded-xl text-center text-sm font-semibold transition"
+              >
+                + Create New Listing
               </Link>
               <Link
-                className='text-slate-700 font-semibold flex-1 hover:underline truncate'
-                to={`/listing/${listing._id}`}
+                to="/agent/my-listings"
+                className="bg-blue-700 hover:bg-blue-800 text-white py-2.5 px-4 rounded-xl text-center text-sm font-semibold transition"
               >
-                <p>{listing.name}</p>
+                Manage Active Escrows & Portfolio
               </Link>
-              <div className='flex flex-col items-center'>
-                <button onClick={() => handleListingDelete(listing._id)} className='text-red-700 uppercase'>
-                  Delete
-                </button>
-                <Link
-                  className='text-green-700 uppercase'
-                  to={`/update-listing/${listing._id}`}
-                >
-                  Edit
-                </Link>
-              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {/* GOV AUDITOR / ADMIN CONSOLE */}
+        {userRole === 'admin' && (
+          <div className="bg-purple-50/70 border border-purple-200 p-5 rounded-2xl space-y-3">
+            <h3 className="font-bold text-purple-950 text-sm flex items-center gap-2">
+              <span>⚖️</span>
+              <span>Government Audit & Regulatory Panel</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <Link
+                to="/admin/manage-users"
+                className="bg-purple-800 hover:bg-purple-900 text-white py-2.5 px-4 rounded-xl text-center text-sm font-semibold transition"
+              >
+                Citizen & Agent Clearances
+              </Link>
+              <Link
+                to="/admin/audit-escrows"
+                className="bg-slate-800 hover:bg-slate-900 text-white py-2.5 px-4 rounded-xl text-center text-sm font-semibold transition"
+              >
+                Audit Land Registry & Escrows
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 3. GLOBAL SIGN-OUT ACTION */}
+      <div className="pt-2">
+        <button
+          type="button"
+          onClick={handleSignOut}
+          disabled={signOutLoading}
+          className="w-full bg-red-50 hover:bg-red-100 border border-red-300 text-red-700 font-bold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          <span>{signOutLoading ? 'Signing out...' : 'Sign Out of Account'}</span>
+        </button>
+      </div>
+
+      {error && <p className="text-red-600 text-xs font-semibold mt-3 text-center">{error}</p>}
+      {updateSuccess && (
+        <p className="text-emerald-600 text-xs font-semibold mt-3 text-center">
+          Profile updated successfully!
+        </p>
       )}
     </div>
   );

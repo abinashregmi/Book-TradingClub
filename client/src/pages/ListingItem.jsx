@@ -12,6 +12,8 @@ import {
   FaMapMarkerAlt,
   FaParking,
   FaShare,
+  FaShieldAlt,
+  FaCalculator,
 } from 'react-icons/fa';
 import Contact from '../components/Contact';
 import { formatPrice } from '../utils/formatPrice';
@@ -29,9 +31,18 @@ export default function Listing() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [bookingProcessing, setBookingProcessing] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingError, setBookingError] = useState(null);
+
+  // Admin Governance Actions State
+  const [adminActionLoading, setAdminActionLoading] = useState(false);
+  const [adminMessage, setAdminMessage] = useState(null);
+  const [adminError, setAdminError] = useState(null);
 
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
+
+  // Determine user role for RBAC
+  const isAdmin = currentUser?.role === 'admin' || currentUser?.role === 'Government_Officer';
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -55,24 +66,116 @@ export default function Listing() {
     fetchListing();
   }, [params.listingId]);
 
-  // Simulate confirming secure booking token
-  const handleConfirmBooking = () => {
-    setBookingProcessing(true);
-    setTimeout(() => {
-      setBookingProcessing(false);
+  // Real backend booking persistence
+  const handleConfirmBooking = async () => {
+    try {
+      setBookingProcessing(true);
+      setBookingError(null);
+
+      const res = await fetch('/api/transaction/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          listingId: listing._id,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        setBookingError(data.message || 'Failed to process booking');
+        setBookingProcessing(false);
+        return;
+      }
+
       setBookingSuccess(true);
-      // Simulate booking update locally on the listing state
+      setBookingProcessing(false);
+
+      setListing(data.listing || {
+        ...listing,
+        isBooked: true,
+        bookingStatus: 'booked',
+      });
+    } catch (err) {
+      setBookingError(err.message || 'An unexpected error occurred during booking.');
+      setBookingProcessing(false);
+    }
+  };
+
+  // ADMIN ACTION 1: Verify Lalpurja Asset with Government Pattern Match
+  const handleVerifyAsset = async () => {
+    try {
+      setAdminActionLoading(true);
+      setAdminError(null);
+      setAdminMessage(null);
+
+      const res = await fetch(`/api/governance/verify-asset/${listing._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await res.json();
+      setAdminActionLoading(false);
+
+      if (data.success === false) {
+        setAdminError(data.message || 'Asset verification failed.');
+        return;
+      }
+
+      setAdminMessage('Property successfully verified under Nepal Land Revenue Registry!');
       setListing((prev) => ({
         ...prev,
-        bookingStatus: 'booked',
+        isRegistryVerified: true,
+        verifiedAt: data.listing?.verifiedAt || new Date().toISOString(),
       }));
-    }, 1200);
+    } catch (err) {
+      setAdminError(err.message || 'Failed to execute verification request.');
+      setAdminActionLoading(false);
+    }
+  };
+
+  // ADMIN ACTION 2: Calculate and assess municipal property tax
+  const handleCalculateTax = async () => {
+    try {
+      setAdminActionLoading(true);
+      setAdminError(null);
+      setAdminMessage(null);
+
+      const res = await fetch(`/api/governance/calculate-tax/${listing._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await res.json();
+      setAdminActionLoading(false);
+
+      if (data.success === false) {
+        setAdminError(data.message || 'Tax calculation failed.');
+        return;
+      }
+
+      setAdminMessage(`Municipal tax successfully assessed at Rs. ${Number(data.taxAmount).toLocaleString('en-US')}/yr`);
+      setListing((prev) => ({
+        ...prev,
+        municipalTaxAmount: data.taxAmount,
+      }));
+    } catch (err) {
+      setAdminError(err.message || 'Failed to calculate tax.');
+      setAdminActionLoading(false);
+    }
   };
 
   const handleCloseModal = () => {
     setShowBookingModal(false);
     setBookingSuccess(false);
+    setBookingError(null);
   };
+
+  const isPropertyBooked = Boolean(
+    listing?.isBooked || listing?.bookingStatus === 'booked'
+  );
 
   return (
     <main>
@@ -145,7 +248,7 @@ export default function Listing() {
                 </p>
               )}
 
-              {/* REQUIREMENT 2: PROMINENT CIVIC AUDIT BADGE */}
+              {/* CIVIC AUDIT BADGE */}
               {listing.isRegistryVerified ? (
                 <span className='bg-green-700 text-white font-bold text-sm px-3.5 py-1.5 rounded-md shadow-xs flex items-center gap-1.5'>
                   ✓ CivicEstate Verified Asset
@@ -153,6 +256,13 @@ export default function Listing() {
               ) : (
                 <span className='bg-amber-400 text-slate-900 font-bold text-sm px-3.5 py-1.5 rounded-md shadow-xs flex items-center gap-1.5'>
                   ⚠️ Pending Civil Audit
+                </span>
+              )}
+
+              {/* ADMIN ROLE BADGE */}
+              {isAdmin && (
+                <span className='bg-purple-800 text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-xs flex items-center gap-1'>
+                  <FaShieldAlt /> Auditor Mode Active
                 </span>
               )}
             </div>
@@ -209,36 +319,97 @@ export default function Listing() {
               </li>
             </ul>
 
-            {/* REQUIREMENT 3: SECURE BOOKING TOKEN BUTTON & CONTACT LANDLORD */}
-            <div className='flex flex-col gap-3 mt-4'>
-              {listing.bookingStatus === 'booked' ? (
-                <div className='bg-green-100 border border-green-300 text-green-800 p-3 rounded-lg text-center font-bold'>
-                  ✓ This property currently has a confirmed Civic Booking Token!
-                </div>
-              ) : (
-                <button
-                  type='button'
-                  onClick={() => setShowBookingModal(true)}
-                  className='bg-green-700 text-white font-bold p-3.5 uppercase rounded-lg hover:bg-green-800 transition shadow-md'
-                >
-                  Process Secure Booking Token (Rs. 50,000)
-                </button>
-              )}
+            {/* ============================================================ */}
+            {/* RBAC SECTION: CONDITIONAL CONTROLS BASED ON USER ROLE       */}
+            {/* ============================================================ */}
 
-              {currentUser && listing.userRef !== currentUser._id && !contact && (
-                <button
-                  onClick={() => setContact(true)}
-                  className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
-                >
-                  Contact landlord
-                </button>
-              )}
-            </div>
+            {/* 1. ADMIN / GOVERNMENT AUDITOR PANEL */}
+            {isAdmin ? (
+              <div className='bg-slate-900 text-white p-5 rounded-xl mt-4 shadow-lg border border-slate-700 flex flex-col gap-3'>
+                <div className='flex items-center justify-between border-b border-slate-700 pb-2'>
+                  <h3 className='text-lg font-bold flex items-center gap-2 text-purple-300'>
+                    <FaShieldAlt /> Land Revenue Governance & Civil Audit Controls
+                  </h3>
+                  <span className='text-xs bg-purple-900 text-purple-200 px-2.5 py-1 rounded font-semibold'>
+                    Auditor Clearance: Active
+                  </span>
+                </div>
+
+                <p className='text-xs text-slate-300'>
+                  Official audit operations for Lalpurja validation and property tax assessment for{' '}
+                  <strong className='text-white font-mono'>{listing.governmentRegistrationNum}</strong>.
+                </p>
+
+                {adminMessage && (
+                  <div className='p-3 bg-green-900/60 border border-green-500 text-green-200 text-xs rounded-lg font-semibold'>
+                    ✓ {adminMessage}
+                  </div>
+                )}
+
+                {adminError && (
+                  <div className='p-3 bg-red-900/60 border border-red-500 text-red-200 text-xs rounded-lg font-semibold'>
+                    ⚠️ {adminError}
+                  </div>
+                )}
+
+                <div className='flex flex-col sm:flex-row gap-3 mt-1'>
+                  {!listing.isRegistryVerified ? (
+                    <button
+                      type='button'
+                      onClick={handleVerifyAsset}
+                      disabled={adminActionLoading}
+                      className='flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition text-xs uppercase shadow flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer'
+                    >
+                      <FaShieldAlt /> {adminActionLoading ? 'Verifying...' : 'Verify Lalpurja Registry (Malpot)'}
+                    </button>
+                  ) : (
+                    <div className='flex-1 py-3 px-4 bg-emerald-950 border border-emerald-500 text-emerald-300 font-bold rounded-lg text-xs uppercase text-center flex items-center justify-center gap-2'>
+                      ✓ Verified on Registry
+                    </div>
+                  )}
+
+                  <button
+                    type='button'
+                    onClick={handleCalculateTax}
+                    disabled={adminActionLoading}
+                    className='flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition text-xs uppercase shadow flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer'
+                  >
+                    <FaCalculator /> {adminActionLoading ? 'Calculating...' : 'Recalculate Municipal Tax'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* 2. STANDARD BUYER VIEW (SECURE BOOKING TOKEN & CONTACT) */
+              <div className='flex flex-col gap-3 mt-4'>
+                {isPropertyBooked ? (
+                  <div className='bg-green-100 border border-green-300 text-green-800 p-4 rounded-lg text-center font-bold text-base shadow-xs'>
+                    ✓ This property currently has a confirmed Civic Booking Token!
+                  </div>
+                ) : (
+                  <button
+                    type='button'
+                    onClick={() => setShowBookingModal(true)}
+                    className='bg-green-700 text-white font-bold p-3.5 uppercase rounded-lg hover:bg-green-800 transition shadow-md cursor-pointer'
+                  >
+                    Process Secure Booking Token (Rs. 50,000)
+                  </button>
+                )}
+
+                {currentUser && listing.userRef !== currentUser._id && !contact && (
+                  <button
+                    onClick={() => setContact(true)}
+                    className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3 cursor-pointer'
+                  >
+                    Contact landlord
+                  </button>
+                )}
+              </div>
+            )}
 
             {contact && <Contact listing={listing} />}
           </div>
 
-          {/* REQUIREMENT 3: CLEAN MODAL OVERLAY TOGGLE WINDOW */}
+          {/* SECURE BOOKING MODAL */}
           {showBookingModal && (
             <div className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs'>
               <div className='bg-white rounded-xl shadow-2xl max-w-md w-full p-6 border border-slate-200 relative'>
@@ -251,7 +422,6 @@ export default function Listing() {
                       Lock in this verified listing under CivicEstate Escrow Guarantee.
                     </p>
 
-                    {/* EXACT TEXTUAL COST BREAKDOWN */}
                     <div className='bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 space-y-2 text-sm'>
                       <div className='flex justify-between items-center text-slate-700'>
                         <span className='font-medium'>
@@ -269,12 +439,18 @@ export default function Listing() {
                       </div>
                     </div>
 
+                    {bookingError && (
+                      <p className='text-red-700 text-sm mb-3 bg-red-50 p-2.5 rounded border border-red-200'>
+                        {bookingError}
+                      </p>
+                    )}
+
                     <div className='flex gap-3'>
                       <button
                         type='button'
                         onClick={handleCloseModal}
                         disabled={bookingProcessing}
-                        className='flex-1 py-2.5 px-4 rounded-lg border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 text-sm'
+                        className='flex-1 py-2.5 px-4 rounded-lg border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 text-sm cursor-pointer'
                       >
                         Cancel
                       </button>
@@ -282,14 +458,13 @@ export default function Listing() {
                         type='button'
                         onClick={handleConfirmBooking}
                         disabled={bookingProcessing}
-                        className='flex-1 py-2.5 px-4 rounded-lg bg-green-700 hover:bg-green-800 text-white font-bold text-sm transition'
+                        className='flex-1 py-2.5 px-4 rounded-lg bg-green-700 hover:bg-green-800 text-white font-bold text-sm transition disabled:opacity-80 cursor-pointer'
                       >
                         {bookingProcessing ? 'Processing Escrow...' : 'Confirm'}
                       </button>
                     </div>
                   </>
                 ) : (
-                  /* SIMULATED SUCCESSFUL TRANSACTION STATE */
                   <div className='text-center py-4'>
                     <div className='text-green-600 text-5xl mb-3'>✓</div>
                     <h3 className='text-xl font-bold text-slate-800 mb-1'>
@@ -301,12 +476,12 @@ export default function Listing() {
                     <div className='bg-green-50 border border-green-200 text-xs text-green-800 p-3 rounded-lg mb-4 text-left space-y-1'>
                       <p>• <strong>Marketplace Fee (2% Commission):</strong> Rs. 1,000</p>
                       <p>• <strong>Seller Payout:</strong> Rs. 49,000</p>
-                      <p>• <strong>Transaction Ref:</strong> TXN-CIVIC-{Date.now().toString().slice(-6)}</p>
+                      <p>• <strong>Status:</strong> Permanently Locked & Recorded</p>
                     </div>
                     <button
                       type='button'
                       onClick={handleCloseModal}
-                      className='w-full py-2.5 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-900 transition'
+                      className='w-full py-2.5 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-900 transition cursor-pointer'
                     >
                       Close Window
                     </button>
