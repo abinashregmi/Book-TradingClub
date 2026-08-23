@@ -73,10 +73,17 @@ export default function CreateListing() {
     fetchListing();
   }, [isEditMode, params.listingId]);
 
-  // Cloudinary image upload handler using Vite env variables
+  // Cloudinary image upload handler with fallback parameters & debug logs
   const storeImageCloudinary = async (file) => {
-    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'unsigned_preset';
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'faylt7ob';
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'ml_default';
+
+    console.log('[Cloudinary Upload] Initiating upload:', {
+      fileName: file.name,
+      fileSize: file.size,
+      cloudName,
+      uploadPreset,
+    });
 
     const uploadData = new FormData();
     uploadData.append('file', file);
@@ -89,16 +96,30 @@ export default function CreateListing() {
     });
 
     const data = await res.json();
+    console.log('[Cloudinary Upload] Response from Cloudinary:', {
+      status: res.status,
+      ok: res.ok,
+      data,
+    });
+
     if (!res.ok || !data.secure_url) {
-      throw new Error(data.error?.message || 'Cloudinary upload failed');
+      const errorMsg = data.error?.message || `Upload failed with HTTP status ${res.status}`;
+      console.error('[Cloudinary Upload Error]:', errorMsg);
+      throw new Error(errorMsg);
     }
+
     return data.secure_url;
   };
 
   const handleImageSubmit = (e) => {
     e.preventDefault();
 
-    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+    if (files.length === 0) {
+      setImageUploadError('Please select at least one image file');
+      return;
+    }
+
+    if (files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
 
@@ -109,15 +130,17 @@ export default function CreateListing() {
 
       Promise.all(promises)
         .then((urls) => {
-          setFormData({
-            ...formData,
-            imageUrls: formData.imageUrls.concat(urls),
-          });
+          setFormData((prev) => ({
+            ...prev,
+            imageUrls: prev.imageUrls.concat(urls),
+          }));
           setImageUploadError(false);
           setUploading(false);
+          setFiles([]);
         })
-        .catch(() => {
-          setImageUploadError('Image upload failed (Cloudinary configuration error or max size exceeded)');
+        .catch((err) => {
+          console.error('[Image Submit Failed]:', err);
+          setImageUploadError(err.message || 'Image upload failed (Cloudinary configuration or 401 Unauthorized)');
           setUploading(false);
         });
     } else {
@@ -404,7 +427,7 @@ export default function CreateListing() {
 
           <div className='flex gap-4'>
             <input
-              onChange={(e) => setFiles(e.target.files)}
+              onChange={(e) => setFiles(Array.from(e.target.files || []))}
               className='p-3 border border-gray-300 rounded w-full bg-white
               file:border-0 file:bg-gray-100 file:mr-4 file:py-2 file:rounded
               hover:file:bg-gray-200'
