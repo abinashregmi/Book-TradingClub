@@ -1,4 +1,4 @@
-# 🏡 CivicEstate – Real Estate Marketplace
+#  CivicEstate – Real Estate Marketplace
 
 A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web application built for transparent property listings, secure user authentication, and property management.
 
