@@ -17,7 +17,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web applicat
 - Firebase Auth (Google Sign-In)
 
 **Server:**
-- Node.js & Express.js
+- Node.js and  Express.js
 - MongoDB & Mongoose
 - JSON Web Tokens (JWT) for secure cookies
 
