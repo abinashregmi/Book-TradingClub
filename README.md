@@ -18,7 +18,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web applicat
 
 **Server:**
 - Node.js and  Express.js
-- MongoDB & Mongoose
+- MongoDB and Mongoose
 - JSON Web Tokens (JWT) for secure cookies
 
 ---
