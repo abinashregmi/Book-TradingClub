@@ -24,7 +24,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web applicat
 ---
 
 ## ⚙️ Features
-- **User Authentication:** Traditional email/password login and seamless Google OAuth integration.
+- **User Authentication:** Traditional email/password login and seamless Google OAuth integration
 - **Property Management:** Create, update, delete, and view detailed real estate listings with image uploads.
 - **Advanced Search & Filtering:** Filter listings by offer type (sale/rent), parking, furnished status, and type.
 - **Responsive Design:** Fully optimized layout for mobile, tablet, and desktop viewports.
