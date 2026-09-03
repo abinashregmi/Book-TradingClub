@@ -33,7 +33,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web applicat
 
 ## 🏗️ Getting Started Locally
 
-To run this project locally on your machine, follow these steps:-
+To run this project locally on your machine, follow these steps:
 
 ### 1. Clone the repository
 ```bash
