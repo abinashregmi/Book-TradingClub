@@ -35,7 +35,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) real estate web applicat
 
 To run this project locally on your machine, follow these steps:
 
-### 1. Clone the repository
+### 1. Clone the repo
 ```bash
 git clone [https://github.com/abinashregmi/mern-estate.git](https://github.com/abinashregmi/mern-estate.git)
 cd mern-estate
